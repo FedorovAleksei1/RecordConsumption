@@ -4,6 +4,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 17.4.33103.184
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RecordConsumption", "RecordConsumption\RecordConsumption.csproj", "{3F2702A9-D249-4A03-B89C-76A45F2EFEF0}"
+	ProjectSection(ProjectDependencies) = postProject
+		{BF0FD5D1-FA81-49F6-8A90-B5E4489753FF} = {BF0FD5D1-FA81-49F6-8A90-B5E4489753FF}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "Domain\Domain.csproj", "{BF0FD5D1-FA81-49F6-8A90-B5E4489753FF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +20,10 @@ Global
 		{3F2702A9-D249-4A03-B89C-76A45F2EFEF0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3F2702A9-D249-4A03-B89C-76A45F2EFEF0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3F2702A9-D249-4A03-B89C-76A45F2EFEF0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BF0FD5D1-FA81-49F6-8A90-B5E4489753FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BF0FD5D1-FA81-49F6-8A90-B5E4489753FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BF0FD5D1-FA81-49F6-8A90-B5E4489753FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BF0FD5D1-FA81-49F6-8A90-B5E4489753FF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
