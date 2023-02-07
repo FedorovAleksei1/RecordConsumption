@@ -1,3 +1,4 @@
+using AutoMapper;
 using Domain;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -9,6 +10,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using RecordConsumption.Mapping;
+using RecordConsumption.Services.TownService;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,8 +32,15 @@ namespace RecordConsumption
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<RecordConsumptionDbContext>(options =>
-                options.UseNpgsql("Host=localhost;Database=RecordConsumptionDb;Username=pgAdmin;Password=Admin"));
+                options.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=RecordConsumptionDb;Trusted_Connection=True;"));
             services.AddControllers();
+
+            services.AddTransient<ITownService, TownService>();
+
+            services.AddSingleton(new MapperConfiguration(mc =>
+             {
+                 mc.AddProfile(new MappingProfile());
+             }).CreateMapper());
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "RecordConsumption", Version = "v1" });
