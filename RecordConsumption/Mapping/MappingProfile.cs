@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Domain.Models;
+using RecordConsumption.Dto.Practice;
 using RecordConsumption.Dto.Town;
 
 namespace RecordConsumption.Mapping
@@ -9,12 +10,10 @@ namespace RecordConsumption.Mapping
         public MappingProfile()
         {
             CreateMap<Town, TownDto>();
-            //.ForMember(t => t.IsZato, rep => rep.Ignore());
 
             CreateMap<TownDto, Town>();
-               
 
-            
+            CreateMap<PracticeEditDto, Practice>();
         }
     }
 }

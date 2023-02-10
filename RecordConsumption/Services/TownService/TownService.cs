@@ -18,7 +18,6 @@ namespace RecordConsumption.Services.TownService
         {
             _context = context;
             _mapper = mapper;
-
         }
 
         public List<TownDto> GetList()
@@ -26,7 +25,6 @@ namespace RecordConsumption.Services.TownService
             var towns = _context.Towns.ToList();
             var townsDto = _mapper.Map<List<TownDto>>(towns);
             return townsDto;
-
         }
 
         public TownDto Get(int id)
@@ -68,6 +66,7 @@ namespace RecordConsumption.Services.TownService
                 throw new Exception("Наименование не может быть пустым");
 
             var town = _mapper.Map<Town>(townDto);
+
             _context.Towns.Update(town);
             _context.SaveChanges();
         }
@@ -87,8 +86,6 @@ namespace RecordConsumption.Services.TownService
 
             _context.Towns.Remove(town);
             _context.SaveChanges();
-
-
         }
     }
 }

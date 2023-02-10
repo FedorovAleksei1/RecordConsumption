@@ -24,10 +24,4 @@
     <ProjectReference Include="..\Domain\Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Services\DoctorService\" />
-    <Folder Include="Services\PolyclinicService\" />
-    <Folder Include="Services\SpecialitizationService\" />
-  </ItemGroup>
-
 </Project>
