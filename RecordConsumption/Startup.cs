@@ -11,6 +11,10 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using RecordConsumption.Mapping;
+using RecordConsumption.Services.DoctorService;
+using RecordConsumption.Services.PolyclinicService;
+using RecordConsumption.Services.PracticeService;
+using RecordConsumption.Services.SpecialitizationService;
 using RecordConsumption.Services.TownService;
 using System;
 using System.Collections.Generic;
@@ -36,6 +40,10 @@ namespace RecordConsumption
             services.AddControllers();
 
             services.AddTransient<ITownService, TownService>();
+            services.AddTransient<IDoctorService, DoctorService>();
+            services.AddTransient<IPolyclinicService, PolyclinicService>();
+            services.AddTransient<IPracticeService, PracticeService>();
+            services.AddTransient<ISpecializationService, SpecializationService>();
 
             services.AddSingleton(new MapperConfiguration(mc =>
              {

@@ -7,6 +7,7 @@ using System;
 using System.Linq;
 using RecordConsumption.Dto.Doctor;
 using RecordConsumption.Services.PracticeService;
+using Microsoft.EntityFrameworkCore;
 
 namespace RecordConsumption.Services.DoctorService
 {
@@ -32,18 +33,18 @@ namespace RecordConsumption.Services.DoctorService
 
         }
 
-        public DoctorDto Get(int id)
+        public DoctorEditDto Get(int id)
         {
-            var doctorDto = new DoctorDto();
+            var doctorDto = new DoctorEditDto();
             if (id == 0)
                 throw new Exception("Id должен быть больше 0");
 
-            var doctor = _context.Doctors.FirstOrDefault(t => t.Id == id);
+            var doctor = _context.Doctors.Include(d => d.Practices).FirstOrDefault(t => t.Id == id);
 
             if (doctor == null)
                 throw new Exception("Объект не найден");
 
-            doctorDto = _mapper.Map<DoctorDto>(doctor);
+            doctorDto = _mapper.Map<DoctorEditDto>(doctor);
 
             return doctorDto;
         }
@@ -56,10 +57,10 @@ namespace RecordConsumption.Services.DoctorService
             if (string.IsNullOrEmpty(doctorDto.Name))
                 throw new Exception("Наименование не может быть пустым");
 
-            if (doctorDto.Practices == null || doctorDto.Practices.Count == 0)
+            if (doctorDto.PracticesDto == null || doctorDto.PracticesDto.Count == 0)
                 throw new Exception("Укажите практику");
 
-            if (doctorDto.PolyclinicsId.Any())
+            if (!doctorDto.PolyclinicsId.Any())
                 throw new Exception("Укажите полеклиники");
 
 
@@ -70,8 +71,8 @@ namespace RecordConsumption.Services.DoctorService
             _context.Doctors.Add(doctor);
             _context.SaveChanges();
 
-            doctorDto.Practices.ForEach(p => p.DoctorId = doctor.Id);
-            _practiceService.CreateRange(doctorDto.Practices);
+            doctorDto.PracticesDto.ForEach(p => p.DoctorId = doctor.Id);
+            _practiceService.CreateRange(doctorDto.PracticesDto);
 
             return doctor.Id;
         }
@@ -84,8 +85,9 @@ namespace RecordConsumption.Services.DoctorService
             if (string.IsNullOrEmpty(doctorDto.Name))
                 throw new Exception("Наименование не может быть пустым");
 
-            if (doctorDto.Practices == null || doctorDto.Practices.Count == 0)
+            if (doctorDto.PracticesDto == null || doctorDto.PracticesDto.Count == 0)
                 throw new Exception("Верни практику ");
+            
 
             var doctor = _mapper.Map<Doctor>(doctorDto);
 
@@ -93,8 +95,8 @@ namespace RecordConsumption.Services.DoctorService
             _context.Doctors.Update(doctor);
             _context.SaveChanges();
 
-            doctorDto.Practices.ForEach(p => p.DoctorId = doctor.Id);
-            _practiceService.CreateRange(doctorDto.Practices);//переделать
+            doctorDto.PracticesDto.ForEach(p => p.DoctorId = doctor.Id);
+            _practiceService.EditRange(doctorDto.PracticesDto);
         }
 
         public void Delete(int id)
@@ -107,9 +109,7 @@ namespace RecordConsumption.Services.DoctorService
             if (doctor == null)
                 throw new Exception("Объект не найден");
 
-            //if (specialization.Count > 0)
-            //    throw new Exception("Список полеклиник не пуст. Удалите или измените полеклиники");???
-
+            _context.Practices.RemoveRange(doctor.Practices);
             _context.Doctors.Remove(doctor);
             _context.SaveChanges();
 

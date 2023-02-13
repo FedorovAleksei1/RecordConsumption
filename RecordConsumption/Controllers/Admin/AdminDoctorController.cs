@@ -28,7 +28,7 @@ namespace RecordConsumption.Controllers.Admin
 
 
         [HttpGet("[action]/{id}")]
-        public DoctorDto Get(int id)
+        public DoctorEditDto Get(int id)
         {
             var doctorDto = _doctorService.Get(id);
             return doctorDto;
@@ -36,15 +36,15 @@ namespace RecordConsumption.Controllers.Admin
 
 
         [HttpPost("[action]")]
-        public int Create([FromBody] DoctorEditDto town)
+        public int Create([FromBody] DoctorEditDto doctor)
         {
-            return _doctorService.Create(town);
+            return _doctorService.Create(doctor);
         }
 
         [HttpPost("[action]")]
-        public void Edit([FromBody] DoctorEditDto town)
+        public void Edit([FromBody] DoctorEditDto doctor)
         {
-            _doctorService.Edit(town);
+            _doctorService.Edit(doctor);
             return;
         }
 

@@ -7,7 +7,7 @@ namespace RecordConsumption.Services.DoctorService
     public interface IDoctorService
     {
         List<DoctorDto> GetList();
-        DoctorDto Get(int id);
+        DoctorEditDto Get(int id);
         int Create(DoctorEditDto doctorDto);
         void Edit(DoctorEditDto doctorDto);
         void Delete(int id);

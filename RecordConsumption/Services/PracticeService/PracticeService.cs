@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Domain;
 using Domain.Models;
+using Microsoft.AspNetCore.Connections.Features;
 using RecordConsumption.Dto.Doctor;
 using RecordConsumption.Dto.Practice;
 using System.Collections.Generic;
@@ -33,18 +34,30 @@ namespace RecordConsumption.Services.PracticeService
         {
             if (practicesDto == null || practicesDto.Count == 0)
                 return;
+           
 
             var practices = _mapper.Map<List<Practice>>(practicesDto);
 
-            var bd = _context.Practices.Where(p => p.DoctorId == practicesDto.FirstOrDefault().DoctorId).ToList();
+            var practicesDd = _context.Practices.Where(p => p.DoctorId == practicesDto.FirstOrDefault().DoctorId).ToList();
 
-            //Если нет в БД, и есть в новом списке, то добавить
-            _context.Practices.AddRange(practices);
+            practices.Where(p => p.Id == 0).ToList().ForEach(p =>
+            {
+                _context.Practices.Add(p);
+            });
 
-            //Если есть в БД, и есть в новом списке, то изминить
+            practices.Where(p => p.Id != 0).ToList().ForEach(p =>
+            {
+                
+                var element = practicesDd.Where(pDb => pDb.Id == p.Id).FirstOrDefault();
+                element.Start = p.Start;
+                element.End = p.End;
+                _context.Practices.Update(element);
+            });
 
-            //Если есть в БД, и нет в новом списке, то удалить
-
+            _context.RemoveRange(practicesDd
+                .Where(pDd => 
+                practices.Select(p => p.Id).Contains(pDd.Id)
+           ).FirstOrDefault());
 
             _context.SaveChanges();
         }

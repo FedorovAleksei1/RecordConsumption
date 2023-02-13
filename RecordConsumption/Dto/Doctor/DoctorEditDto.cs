@@ -8,6 +8,6 @@ namespace RecordConsumption.Dto.Doctor
         public int? Id { get; set; }
         public string Name { get; set; }
         public ICollection<int> PolyclinicsId { get; set; }
-        public List<PracticeEditDto> Practices { get; set; }
+        public List<PracticeEditDto> PracticesDto { get; set; }
     }
 }

@@ -5,6 +5,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Dto\Doctor\DoctorDto.cs\**" />
+    <Content Remove="Dto\Doctor\DoctorDto.cs\**" />
+    <EmbeddedResource Remove="Dto\Doctor\DoctorDto.cs\**" />
+    <None Remove="Dto\Doctor\DoctorDto.cs\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AutoMapper" Version="10.1.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.17">
       <PrivateAssets>all</PrivateAssets>
