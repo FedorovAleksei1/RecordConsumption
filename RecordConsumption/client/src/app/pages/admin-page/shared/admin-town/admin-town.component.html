@@ -1,0 +1,14 @@
+<div class="text-center">Города</div>
+
+<div class="form-control" *ngFor="let town of townList">
+  <label for="">Название</label>
+  <input type="text" name="townName" [(ngModel)]="town.name">
+  <button type="submit" class="btn btn-primary" (click)="editTown(town)">Редактировать</button>
+  <button type="submit" class="btn btn-primary" (click)="removeTown(town)">Удалить</button>
+</div>
+
+<div class="form-control">
+  <label for="">Название</label>
+  <input type="text" name="townName" [(ngModel)]="newTown.name">
+  <button type="submit" class="btn btn-primary" (click)="createTown()">Добавить</button>
+</div>

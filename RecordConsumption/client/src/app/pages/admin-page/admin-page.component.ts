@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { MatDialog, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { AddTownComponent } from '../../dialogs/add-town/add-town.component';
-import { Client } from '../../services/Client';
+import { Client, TownDto } from '../../services/Client';
 
 export interface PeriodicElement {
   name: string;
@@ -30,13 +30,34 @@ export class AdminPageComponent {
 
   displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
   dataSource = ELEMENT_DATA;
+
+
+
   constructor(public dialog: MatDialog, private client: Client) {
-    this.getTownList();
   }
 
-  getTownList() {
-    this.client.getList4().subscribe(data => console.log(data));
-  }
+  //Работа с Городами
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   openDialog(): void {
     const dialogRef = this.dialog.open(AddTownComponent, {
       data: 1,
@@ -44,8 +65,6 @@ export class AdminPageComponent {
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
-
-
     });
 
 

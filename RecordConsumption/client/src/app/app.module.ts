@@ -10,6 +10,7 @@ import { MatTableModule } from '@angular/material/table';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { Client } from './services/Client';
 import { HttpClientModule } from '@angular/common/http';
+import { AdminTownComponent } from './pages/admin-page/shared/admin-town/admin-town.component';
 
 @NgModule({
   exports: [
@@ -19,6 +20,7 @@ import { HttpClientModule } from '@angular/common/http';
     AppComponent,
     AdminPageComponent,
     AddTownComponent,
+    AdminTownComponent,
     
  
   ],
