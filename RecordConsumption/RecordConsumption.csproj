@@ -12,6 +12,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="client\src\app\services\Client.ts" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AutoMapper" Version="10.1.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.17">
       <PrivateAssets>all</PrivateAssets>
@@ -29,6 +33,16 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Domain\Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="client\src\app\pages\" />
+    <Folder Include="client\src\app\dialogs\" />
+    <Folder Include="client\src\app\services\adminTown\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <TypeScriptCompile Include="client\src\app\services\Client.ts" />
   </ItemGroup>
 
 </Project>
