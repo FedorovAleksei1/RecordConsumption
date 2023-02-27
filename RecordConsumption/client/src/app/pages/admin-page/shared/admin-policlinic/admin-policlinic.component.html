@@ -1,0 +1,29 @@
+<div class="text-center">Поликлиники</div>
+
+<div class="form-control" *ngFor="let policlinic of policlinicList">
+  <label for="">Название</label>
+  <input type="text" [(ngModel)]="policlinic.name">
+  <br>
+  <select [(ngModel)]="policlinic.townId">
+    <option *ngFor="let town of townList" [value]="town.id">
+      {{town.name}}
+    </option>
+  </select>
+  <br>
+  <button type="submit" class="btn btn-primary" (click)="editPoliclinic(policlinic)">Редактировать</button>
+  <button type="submit" class="btn btn-primary" (click)="removePoliclinic(policlinic)">Удалить</button>
+  <div><br></div>
+</div>
+
+
+<div class="form-control">
+  <label for="">Название</label>
+  <input type="text" [(ngModel)]="newPolyclinic.name">
+  <select [(ngModel)]="newPolyclinic.townId">
+    <option [value]="0"></option>
+    <option *ngFor="let town of townList" [value]="town.id">
+      {{town.name}}
+    </option>
+  </select>
+  <button type="submit" class="btn btn-primary" (click)="createPoliclinic()">Добавить</button>
+</div>

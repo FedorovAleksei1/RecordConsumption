@@ -1,0 +1,15 @@
+<div class="text-center">Специальность</div>
+
+<div class="form-control" *ngFor="let specialization of specializationList">
+  <label for="">Название</label>
+  <input type="text" name="specializationName" [(ngModel)]="specialization.name">
+  <br>
+  <button type="submit" class="btn btn-primary" (click)="editSpecialization(specialization)">Редактировать</button>
+  <button type="submit" class="btn btn-primary" (click)="removeSpecialization(specialization)">Удалить</button>
+</div>
+
+<div class="form-control">
+  <label for="">Название</label>
+  <input type="text" name="specializationName" [(ngModel)]="newSpecialization.name">
+  <button type="submit" class="btn btn-primary" (click)="createSpecialization()">Добавить</button>
+</div>

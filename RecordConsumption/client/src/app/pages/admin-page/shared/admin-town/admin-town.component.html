@@ -3,9 +3,12 @@
 <div class="form-control" *ngFor="let town of townList">
   <label for="">Название</label>
   <input type="text" name="townName" [(ngModel)]="town.name">
+  <br>
   <button type="submit" class="btn btn-primary" (click)="editTown(town)">Редактировать</button>
   <button type="submit" class="btn btn-primary" (click)="removeTown(town)">Удалить</button>
+ <div><br></div>
 </div>
+
 
 <div class="form-control">
   <label for="">Название</label>

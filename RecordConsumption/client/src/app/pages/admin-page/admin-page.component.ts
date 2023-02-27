@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { MatDialog, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { AddTownComponent } from '../../dialogs/add-town/add-town.component';
-import { Client, TownDto } from '../../services/Client';
+import { Client, TownDto, SpecializationDto } from '../../services/Client';
+
 
 export interface PeriodicElement {
   name: string;

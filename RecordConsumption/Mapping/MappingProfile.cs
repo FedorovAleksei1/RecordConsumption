@@ -5,6 +5,7 @@ using RecordConsumption.Dto.Polyclinic;
 using RecordConsumption.Dto.Practice;
 using RecordConsumption.Dto.Specialization;
 using RecordConsumption.Dto.Town;
+using System.Linq;
 
 namespace RecordConsumption.Mapping
 {
@@ -22,6 +23,10 @@ namespace RecordConsumption.Mapping
 
             CreateMap<DoctorEditDto, Doctor>();
 
+            CreateMap<Doctor, DoctorEditDto>()
+                .ForMember(t => t.PracticesDto, rep => rep.MapFrom(ped => ped.Practices))
+                .ForMember(t => t.PolyclinicsId, rep => rep.MapFrom(ped => ped.Polyclinics.Select(p => p.Id).ToList())); 
+
             CreateMap<Polyclinic, PolyclinicDto>();
 
             CreateMap<PolyclinicDto, Polyclinic>();
@@ -32,6 +37,7 @@ namespace RecordConsumption.Mapping
 
             CreateMap<PracticeEditDto, Practice>()
                 .ForMember(t => t.Id, rep => rep.MapFrom(ped => ped.Id == null ? 0 : ped.Id));
+            CreateMap<Practice, PracticeEditDto>();
         }
     }
 }

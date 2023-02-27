@@ -39,7 +39,10 @@ namespace RecordConsumption.Services.DoctorService
             if (id == 0)
                 throw new Exception("Id должен быть больше 0");
 
-            var doctor = _context.Doctors.Include(d => d.Practices).FirstOrDefault(t => t.Id == id);
+            var doctor = _context.Doctors
+                .Include(d => d.Practices)
+                .Include(d => d.Polyclinics)
+                .FirstOrDefault(t => t.Id == id);
 
             if (doctor == null)
                 throw new Exception("Объект не найден");
