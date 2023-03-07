@@ -1,6 +1,6 @@
 <div class="text-center">Города</div>
 
-<div class="form-control" *ngFor="let town of townList">
+<!--<div class="form-control" *ngFor="let town of townList">
   <label for="">Название</label>
   <input type="text" name="townName" [(ngModel)]="town.name">
   <br>
@@ -14,4 +14,25 @@
   <label for="">Название</label>
   <input type="text" name="townName" [(ngModel)]="newTown.name">
   <button type="submit" class="btn btn-primary" (click)="createTown()">Добавить</button>
+</div>-->
+
+<div class="form-control" *ngFor="let town of townList">
+  <mat-form-field appearance="fill">
+    <mat-label>Название</mat-label>
+    <input matInput [(ngModel)]="town.name">
+    <br>
+  </mat-form-field>
+  <button mat-raised-button (click)="editTown(town)">Редактировать </button>
+  <button mat-raised-button (click)="removeTown(town)">Удалить</button>
+</div>
+
+
+
+<div class="form-control">
+  <mat-form-field appearance="fill">
+    <mat-label>Название</mat-label>
+    <input matInput [(ngModel)]="newTown.name">
+  </mat-form-field>
+  <br>
+  <button mat-raised-button (click)="createTown()">Добавить</button>
 </div>

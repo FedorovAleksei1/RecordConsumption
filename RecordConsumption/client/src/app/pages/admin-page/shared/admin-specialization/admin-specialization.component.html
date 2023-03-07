@@ -1,6 +1,6 @@
 <div class="text-center">Специальность</div>
 
-<div class="form-control" *ngFor="let specialization of specializationList">
+<!--<div class="form-control" *ngFor="let specialization of specializationList">
   <label for="">Название</label>
   <input type="text" name="specializationName" [(ngModel)]="specialization.name">
   <br>
@@ -12,4 +12,24 @@
   <label for="">Название</label>
   <input type="text" name="specializationName" [(ngModel)]="newSpecialization.name">
   <button type="submit" class="btn btn-primary" (click)="createSpecialization()">Добавить</button>
+</div>-->
+
+<div class="form-control" *ngFor="let specialization of specializationList">
+  <mat-form-field appearance="fill">
+    <mat-label>Название</mat-label>
+    <input matInput [(ngModel)]="specialization.name">
+    <br>
+  </mat-form-field>
+  <button mat-raised-button (click)="editSpecialization(specialization)">Редактировать </button>
+  <button mat-raised-button (click)="removeSpecialization(specialization)">Удалить</button>
 </div>
+
+<div class="form-control">
+  <mat-form-field appearance="fill">
+    <mat-label>Название</mat-label>
+    <input matInput [(ngModel)]="newSpecialization.name">
+  </mat-form-field>
+  <br>
+  <button mat-raised-button (click)="createSpecialization()">Добавить</button>
+</div>
+

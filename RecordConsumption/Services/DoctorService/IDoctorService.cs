@@ -11,5 +11,6 @@ namespace RecordConsumption.Services.DoctorService
         int Create(DoctorEditDto doctorDto);
         void Edit(DoctorEditDto doctorDto);
         void Delete(int id);
+        List<DoctorDto> GetDoctorsBySpecializationId(int id);
     }
 }

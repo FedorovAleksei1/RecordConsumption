@@ -8,6 +8,7 @@ using System.Linq;
 using RecordConsumption.Dto.Doctor;
 using RecordConsumption.Services.PracticeService;
 using Microsoft.EntityFrameworkCore;
+using RecordConsumption.Services.SpecialitizationService;
 
 namespace RecordConsumption.Services.DoctorService
 {
@@ -15,14 +16,15 @@ namespace RecordConsumption.Services.DoctorService
     {
         private readonly RecordConsumptionDbContext _context;
         private readonly IPracticeService _practiceService;
+        private readonly ISpecializationService _specializationService;
         private readonly IMapper _mapper;
 
-        public DoctorService(RecordConsumptionDbContext context, IPracticeService practiceService, IMapper mapper)
+        public DoctorService(RecordConsumptionDbContext context, IPracticeService practiceService, IMapper mapper, ISpecializationService specializationService)
         {
             _context = context;
             _practiceService = practiceService;
             _mapper = mapper;
-
+            _specializationService = specializationService;
         }
 
         public List<DoctorDto> GetList()
@@ -47,7 +49,11 @@ namespace RecordConsumption.Services.DoctorService
             if (doctor == null)
                 throw new Exception("Объект не найден");
 
+            var specializationIds = doctor.Practices.Select(x => x.SpecializationId).ToList();
+            var specializationsDto = _specializationService.GetSpecializationsByIds(specializationIds);
+
             doctorDto = _mapper.Map<DoctorEditDto>(doctor);
+            doctorDto.SpecializationDto = specializationsDto;
 
             return doctorDto;
         }
@@ -57,7 +63,13 @@ namespace RecordConsumption.Services.DoctorService
             if (doctorDto == null)
                 throw new Exception("Объект не может быть пустым");
 
-            if (string.IsNullOrEmpty(doctorDto.Name))
+            if (string.IsNullOrEmpty(doctorDto.FirstName ))
+                throw new Exception("Наименование не может быть пустым");
+
+            if (string.IsNullOrEmpty( doctorDto.MiddleName ))
+                throw new Exception("Наименование не может быть пустым");
+
+            if (string.IsNullOrEmpty( doctorDto.LastName))
                 throw new Exception("Наименование не может быть пустым");
 
             if (doctorDto.PracticesDto == null || doctorDto.PracticesDto.Count == 0)
@@ -85,7 +97,13 @@ namespace RecordConsumption.Services.DoctorService
             if (doctorDto == null)
                 throw new Exception("Объект не может быть пустым");
 
-            if (string.IsNullOrEmpty(doctorDto.Name))
+            if (string.IsNullOrEmpty(doctorDto.FirstName))
+                throw new Exception("Наименование не может быть пустым");
+
+            if (string.IsNullOrEmpty(doctorDto.MiddleName))
+                throw new Exception("Наименование не может быть пустым");
+
+            if (string.IsNullOrEmpty(doctorDto.LastName))
                 throw new Exception("Наименование не может быть пустым");
 
             if (doctorDto.PracticesDto == null || doctorDto.PracticesDto.Count == 0)
@@ -115,8 +133,13 @@ namespace RecordConsumption.Services.DoctorService
             _context.Practices.RemoveRange(doctor.Practices);
             _context.Doctors.Remove(doctor);
             _context.SaveChanges();
+        }
 
-
+        public List<DoctorDto> GetDoctorsBySpecializationId(int id)
+        {
+            var doctors = _context.Doctors.Include(x => x.Practices).ToList();
+            var actualDoctors = doctors.SelectMany(x => x.Practices).Where(x => x.SpecializationId == id && x.End == null).Select(x => x.Doctor).ToList();  
+            return _mapper.Map<List<DoctorDto>>(actualDoctors);
         }
     }
 }

@@ -37,8 +37,6 @@ export class AdminPoliclinicComponent {
 
   editPoliclinic(policlinic: PolyclinicDto) {
     this.client.edit2(policlinic).subscribe(() => { this.getPoliclinicList() });
-    /*console.log(town);*/
-    /*console.log(this.townList.find(d => d.id == town.townId))*/
   }
 
   removePoliclinic(policlinic: PolyclinicDto) {

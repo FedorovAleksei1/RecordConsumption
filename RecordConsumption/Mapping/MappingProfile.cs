@@ -13,13 +13,9 @@ namespace RecordConsumption.Mapping
     {
         public MappingProfile()
         {
-            CreateMap<Town, TownDto>();
+            CreateMap<Town, TownDto>().ReverseMap();
 
-            CreateMap<TownDto, Town>();
-
-            CreateMap<Doctor, DoctorDto>();
-
-            CreateMap<DoctorDto, Doctor>();
+            CreateMap<Doctor, DoctorDto>().ReverseMap();
 
             CreateMap<DoctorEditDto, Doctor>();
 
@@ -27,9 +23,7 @@ namespace RecordConsumption.Mapping
                 .ForMember(t => t.PracticesDto, rep => rep.MapFrom(ped => ped.Practices))
                 .ForMember(t => t.PolyclinicsId, rep => rep.MapFrom(ped => ped.Polyclinics.Select(p => p.Id).ToList())); 
 
-            CreateMap<Polyclinic, PolyclinicDto>();
-
-            CreateMap<PolyclinicDto, Polyclinic>();
+            CreateMap<Polyclinic, PolyclinicDto>().ReverseMap();
 
             CreateMap<Specialization, SpecializationDto>();
 
@@ -38,6 +32,8 @@ namespace RecordConsumption.Mapping
             CreateMap<PracticeEditDto, Practice>()
                 .ForMember(t => t.Id, rep => rep.MapFrom(ped => ped.Id == null ? 0 : ped.Id));
             CreateMap<Practice, PracticeEditDto>();
+
+            CreateMap<Practice, PracticeDto>().ReverseMap();
         }
     }
 }

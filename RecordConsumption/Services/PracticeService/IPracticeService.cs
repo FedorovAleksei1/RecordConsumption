@@ -1,4 +1,5 @@
-﻿using RecordConsumption.Dto.Practice;
+﻿using Domain.Models;
+using RecordConsumption.Dto.Practice;
 using System.Collections.Generic;
 
 namespace RecordConsumption.Services.PracticeService
@@ -8,5 +9,7 @@ namespace RecordConsumption.Services.PracticeService
         void CreateRange(List<PracticeEditDto> practicesDto);
 
         void EditRange(List<PracticeEditDto> practicesDto);
+
+        List<PracticeDto> GetActualPracriceList(string towm = null);
     }
 }

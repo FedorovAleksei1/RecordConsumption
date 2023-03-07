@@ -15,6 +15,7 @@ import { AdminDoctorComponent } from './pages/admin-page/shared/admin-doctor/adm
 import { AdminDoctorListComponent } from './pages/admin-page/shared/admin-doctor-list/admin-doctor-list.component';
 import { MatSelectModule } from '@angular/material/select'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
+import { MatInputModule } from '@angular/material/input';
 
 @NgModule({
   exports: [
@@ -36,9 +37,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-   // MaterialModule,
+    MatInputModule,
     MatSelectModule,
     BrowserAnimationsModule,
+    MaterialModule
   ],
   providers: [Client],
   bootstrap: [AppComponent]

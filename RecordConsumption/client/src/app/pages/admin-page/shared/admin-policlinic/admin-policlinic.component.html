@@ -1,6 +1,6 @@
 <div class="text-center">Поликлиники</div>
 
-<div class="form-control" *ngFor="let policlinic of policlinicList">
+<!--<div class="form-control" *ngFor="let policlinic of policlinicList">
   <label for="">Название</label>
   <input type="text" [(ngModel)]="policlinic.name">
   <br>
@@ -13,10 +13,29 @@
   <button type="submit" class="btn btn-primary" (click)="editPoliclinic(policlinic)">Редактировать</button>
   <button type="submit" class="btn btn-primary" (click)="removePoliclinic(policlinic)">Удалить</button>
   <div><br></div>
+</div>-->
+
+<div class="form-control" *ngFor="let policlinic of policlinicList">
+  <mat-form-field appearance="fill">
+    <mat-label>Название</mat-label>
+    <input matInput [(ngModel)]="policlinic.name">
+    <br>
+  </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Город</mat-label>
+      <mat-select [(ngModel)]="policlinic.townId">
+        <mat-option *ngFor="let town of townList" [value]="town.id">
+          {{town.name}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <br>
+    <button mat-raised-button (click)="editPoliclinic(policlinic)">Редактировать</button>
+    <button mat-raised-button (click)="removePoliclinic(policlinic)">Удалить</button>
+    <div><br></div>
 </div>
 
-
-<div class="form-control">
+<!--<div class="form-control">
   <label for="">Название</label>
   <input type="text" [(ngModel)]="newPolyclinic.name">
   <select [(ngModel)]="newPolyclinic.townId">
@@ -26,4 +45,23 @@
     </option>
   </select>
   <button type="submit" class="btn btn-primary" (click)="createPoliclinic()">Добавить</button>
+</div>-->
+
+<div class="form-control">
+  <mat-form-field appearance="fill">
+    <mat-label>Название</mat-label>
+    <input matInput [(ngModel)]="newPolyclinic.name">
+  </mat-form-field>
+    <br>
+    <mat-form-field appearance="fill">
+      <mat-label>Город</mat-label>
+
+      <mat-select [(ngModel)]="newPolyclinic.townId">
+        <mat-option *ngFor="let town of townList" [value]="town.id">
+          {{town.name}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <br>
+    <button mat-raised-button (click)="createPoliclinic()">Добавить</button>
 </div>

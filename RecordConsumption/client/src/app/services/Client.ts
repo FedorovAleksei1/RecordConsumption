@@ -10,10 +10,10 @@
 
 import { mergeMap as _observableMergeMap, catchError as _observableCatch } from 'rxjs/operators';
 import { Observable, throwError as _observableThrow, of as _observableOf } from 'rxjs';
-import { Injectable, Inject, Optional, InjectionToken } from '@angular/core';
+import { Injectable, Inject, Optional, InjectionToken,  } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpResponse, HttpResponseBase } from '@angular/common/http';
 
-export const API_BASE_URL = new InjectionToken<string>('API_BASE_URL');;
+export const API_BASE_URL = new InjectionToken<string>('API_BASE_URL');
 
 @Injectable()
 export class Client {
@@ -1098,7 +1098,12 @@ export class Client {
 
 export class DoctorDto implements IDoctorDto {
   id?: number;
-  name?: string | undefined;
+  firstName?: string | undefined;
+  middleName?: string | undefined;
+  lastName?: string | undefined;
+  phone?: number;
+  longDesk?: string | undefined;
+  shortDesk?: string | undefined;
 
   constructor(data?: IDoctorDto) {
     if (data) {
@@ -1112,7 +1117,12 @@ export class DoctorDto implements IDoctorDto {
   init(_data?: any) {
     if (_data) {
       this.id = _data["id"];
-      this.name = _data["name"];
+      this.firstName = _data["firstName"];
+      this.middleName = _data["middleName"];
+      this.lastName = _data["lastName"];
+      this.phone = _data["phone"];
+      this.longDesk = _data["longDesk"];
+      this.shortDesk = _data["shortDesk"];
     }
   }
 
@@ -1126,7 +1136,12 @@ export class DoctorDto implements IDoctorDto {
   toJSON(data?: any) {
     data = typeof data === 'object' ? data : {};
     data["id"] = this.id;
-    data["name"] = this.name;
+    data["firstName"] = this.firstName;
+    data["middleName"] = this.middleName;
+    data["lastName"] = this.lastName;
+    data["phone"] = this.phone;
+    data["longDesk"] = this.longDesk;
+    data["shortDesk"] = this.shortDesk;
     return data;
   }
 
@@ -1140,7 +1155,12 @@ export class DoctorDto implements IDoctorDto {
 
 export interface IDoctorDto {
   id?: number;
-  name?: string | undefined;
+  firstName?: string | undefined;
+  middleName?: string | undefined;
+  lastName?: string | undefined;
+  phone?: number;
+  longDesk?: string | undefined;
+  shortDesk?: string | undefined;
 }
 
 export class PracticeEditDto implements IPracticeEditDto {
@@ -1204,7 +1224,12 @@ export interface IPracticeEditDto {
 
 export class DoctorEditDto implements IDoctorEditDto {
   id?: number | undefined;
-  name?: string | undefined;
+  firstName?: string | undefined;
+  middleName?: string | undefined;
+  lastName?: string | undefined;
+  phone?: number;
+  longDesk?: string | undefined;
+  shortDesk?: string | undefined;
   polyclinicsId?: number[] | undefined;
   practicesDto?: PracticeEditDto[] | undefined;
 
@@ -1220,7 +1245,12 @@ export class DoctorEditDto implements IDoctorEditDto {
   init(_data?: any) {
     if (_data) {
       this.id = _data["id"];
-      this.name = _data["name"];
+      this.firstName = _data["firstName"];
+      this.middleName = _data["middleName"];
+      this.lastName = _data["lastName"];
+      this.phone = _data["phone"];
+      this.longDesk = _data["longDesk"];
+      this.shortDesk = _data["shortDesk"];
       if (Array.isArray(_data["polyclinicsId"])) {
         this.polyclinicsId = [] as any;
         for (let item of _data["polyclinicsId"])
@@ -1244,7 +1274,12 @@ export class DoctorEditDto implements IDoctorEditDto {
   toJSON(data?: any) {
     data = typeof data === 'object' ? data : {};
     data["id"] = this.id;
-    data["name"] = this.name;
+    data["firstName"] = this.firstName;
+    data["middleName"] = this.middleName;
+    data["lastName"] = this.lastName;
+    data["phone"] = this.phone;
+    data["longDesk"] = this.longDesk;
+    data["shortDesk"] = this.shortDesk;
     if (Array.isArray(this.polyclinicsId)) {
       data["polyclinicsId"] = [];
       for (let item of this.polyclinicsId)
@@ -1268,7 +1303,12 @@ export class DoctorEditDto implements IDoctorEditDto {
 
 export interface IDoctorEditDto {
   id?: number | undefined;
-  name?: string | undefined;
+  firstName?: string | undefined;
+  middleName?: string | undefined;
+  lastName?: string | undefined;
+  phone?: number;
+  longDesk?: string | undefined;
+  shortDesk?: string | undefined;
   polyclinicsId?: number[] | undefined;
   practicesDto?: PracticeEditDto[] | undefined;
 }

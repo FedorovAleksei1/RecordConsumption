@@ -1,8 +1,7 @@
 ﻿using AutoMapper;
 using Domain;
 using Domain.Models;
-using Microsoft.AspNetCore.Connections.Features;
-using RecordConsumption.Dto.Doctor;
+using Microsoft.EntityFrameworkCore;
 using RecordConsumption.Dto.Practice;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,7 +18,7 @@ namespace RecordConsumption.Services.PracticeService
             _mapper = mapper;
         }
 
-        public void CreateRange(List<PracticeEditDto> practicesDto) 
+        public void CreateRange(List<PracticeEditDto> practicesDto)
         {
             if (practicesDto == null || practicesDto.Count == 0)
                 return;
@@ -29,16 +28,18 @@ namespace RecordConsumption.Services.PracticeService
             _context.Practices.AddRange(practices);
             _context.SaveChanges();
         }
-
+        //todo переписать нахуй
         public void EditRange(List<PracticeEditDto> practicesDto)
         {
             if (practicesDto == null || practicesDto.Count == 0)
                 return;
-           
+
 
             var practices = _mapper.Map<List<Practice>>(practicesDto);
 
-            var practicesDd = _context.Practices.Where(p => p.DoctorId == practicesDto.FirstOrDefault().DoctorId).ToList();
+            var test = practicesDto.FirstOrDefault().DoctorId;
+
+            var practicesDd = _context.Practices.Where(p => p.DoctorId == test).ToList();
 
             practices.Where(p => p.Id == 0).ToList().ForEach(p =>
             {
@@ -47,7 +48,7 @@ namespace RecordConsumption.Services.PracticeService
 
             practices.Where(p => p.Id != 0).ToList().ForEach(p =>
             {
-                
+
                 var element = practicesDd.Where(pDb => pDb.Id == p.Id).FirstOrDefault();
                 element.Start = p.Start;
                 element.End = p.End;
@@ -55,11 +56,26 @@ namespace RecordConsumption.Services.PracticeService
             });
 
             _context.RemoveRange(practicesDd
-                .Where(pDd => 
-                practices.Select(p => p.Id).Contains(pDd.Id)
-           ).FirstOrDefault());
+                .Where(pDd =>
+                !practices.Select(p => p.Id).Contains(pDd.Id)
+           ).ToList());
 
             _context.SaveChanges();
         }
-    }   
+
+        public List<PracticeDto> GetActualPracriceList(string town = null)
+        {
+            var practics = _context.Practices
+                .Include(x => x.Doctor.Polyclinics)
+                .Include(x => x.Specialization)
+                .Where(p => p.End == null);
+
+            if (!string.IsNullOrEmpty(town))
+            {
+                practics = practics.Where(x => x.Doctor.Polyclinics.Any(a => a.Town.Name.ToLower().Contains(town.ToLower())));
+            }
+
+            return _mapper.Map<List<PracticeDto>>(practics);
+        }
+    }
 }

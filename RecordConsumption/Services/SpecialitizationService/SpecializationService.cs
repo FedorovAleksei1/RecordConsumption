@@ -1,12 +1,12 @@
 ﻿using AutoMapper;
-using Domain.Models;
 using Domain;
-using RecordConsumption.Dto.Town;
-using System.Collections.Generic;
-using System;
-using RecordConsumption.Dto.Specialization;
-using System.Linq;
+using Domain.Models;
 using Microsoft.EntityFrameworkCore;
+using RecordConsumption.Dto.Specialization;
+using RecordConsumption.Services.PracticeService;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace RecordConsumption.Services.SpecialitizationService
 {
@@ -14,11 +14,12 @@ namespace RecordConsumption.Services.SpecialitizationService
     {
         private readonly RecordConsumptionDbContext _context;
         private readonly IMapper _mapper;
-        public SpecializationService(RecordConsumptionDbContext context, IMapper mapper)
+        private readonly IPracticeService _practiceService;
+        public SpecializationService(RecordConsumptionDbContext context, IMapper mapper, IPracticeService practiceService)
         {
             _context = context;
             _mapper = mapper;
-
+            _practiceService = practiceService;
         }
 
         public List<SpecializationDto> GetList()
@@ -88,6 +89,35 @@ namespace RecordConsumption.Services.SpecialitizationService
             _context.Specializations.Remove(specialization);
 
             _context.SaveChanges();
+        }
+
+        public List<SpecailizationWithDoctorsDto> GetSpecializationWithDoctors(string town)
+        {
+            var specializations = new List<SpecailizationWithDoctorsDto>();
+            var practices = _practiceService.GetActualPracriceList(town);
+            var groupingPractices = practices.GroupBy(t => t.SpecializationId).ToList();
+            foreach (var group in groupingPractices)
+            {
+                specializations.Add(new SpecailizationWithDoctorsDto
+                {
+                    Id = group.Key,
+                    Name = group.Select(s => s.Specialization.Name).FirstOrDefault(),
+                    DoctorsCount = group.GroupBy(g => g.DoctorId).Count()
+                });
+            }
+            return specializations;
+        }
+
+        public List<SpecializationDto> GetSpecializationsByIds(List<int> ids)
+        {
+            var specializationsDto = new List<SpecializationDto>();
+            if (ids != null && ids.Count > 0)
+            {
+                var specializations = _context.Specializations.Where(x => ids.Contains(x.Id)).ToList();
+                specializationsDto = _mapper.Map<List<SpecializationDto>>(specializations);
+            }
+
+            return specializationsDto;
         }
     }
 }

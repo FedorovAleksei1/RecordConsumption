@@ -11,5 +11,7 @@ namespace RecordConsumption.Services.SpecialitizationService
         void Create(SpecializationDto specializationDto);
         void Edit(SpecializationDto specializationDto);
         void Delete(int id);
+        List<SpecailizationWithDoctorsDto> GetSpecializationWithDoctors(string town);
+        List<SpecializationDto> GetSpecializationsByIds(List<int> ids);
     }
 }

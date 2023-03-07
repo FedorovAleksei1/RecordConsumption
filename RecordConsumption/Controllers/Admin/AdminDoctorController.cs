@@ -10,7 +10,7 @@ namespace RecordConsumption.Controllers.Admin
 
     [ApiController]
 
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     public class AdminDoctorController : ControllerBase
     {
         private readonly IDoctorService _doctorService;
@@ -19,7 +19,7 @@ namespace RecordConsumption.Controllers.Admin
             _doctorService = doctorService;
         }
 
-        [HttpGet("[action]")]
+        [HttpGet]
         public List<DoctorDto> GetList()
         {
             var doctorDtoList = _doctorService.GetList();
@@ -27,7 +27,7 @@ namespace RecordConsumption.Controllers.Admin
         }
 
 
-        [HttpGet("[action]/{id}")]
+        [HttpGet]
         public DoctorEditDto Get(int id)
         {
             var doctorDto = _doctorService.Get(id);
@@ -35,20 +35,20 @@ namespace RecordConsumption.Controllers.Admin
         }
 
 
-        [HttpPost("[action]")]
+        [HttpPost]
         public int Create([FromBody] DoctorEditDto doctor)
         {
             return _doctorService.Create(doctor);
         }
 
-        [HttpPost("[action]")]
+        [HttpPost]
         public void Edit([FromBody] DoctorEditDto doctor)
         {
             _doctorService.Edit(doctor);
             return;
         }
 
-        [HttpPost("[action]/{id}")]
+        [HttpPost]
         public void Delete(int id)
         {
             _doctorService.Delete(id);

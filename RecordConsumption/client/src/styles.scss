@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto');
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
 
 :root {
   --primary-color: #000000;
@@ -320,4 +321,6 @@ table th {
   .example-card {
     max-width: 400px;
   }
+
+  
 }
