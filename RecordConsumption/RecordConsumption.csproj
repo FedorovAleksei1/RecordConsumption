@@ -37,6 +37,7 @@
 
   <ItemGroup>
     <Folder Include="client\src\app\dialogs\" />
+    <Folder Include="client\src\app\pages\home-page\shared\" />
     <Folder Include="client\src\app\services\adminTown\" />
   </ItemGroup>
 

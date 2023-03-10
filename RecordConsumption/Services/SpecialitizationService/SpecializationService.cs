@@ -91,6 +91,11 @@ namespace RecordConsumption.Services.SpecialitizationService
             _context.SaveChanges();
         }
 
+        /// <summary>
+        /// Список специализации и количество врачей 
+        /// </summary>
+        /// <param name="town"> фильтр по городу</param>
+        /// <returns></returns>
         public List<SpecailizationWithDoctorsDto> GetSpecializationWithDoctors(string town)
         {
             var specializations = new List<SpecailizationWithDoctorsDto>();
@@ -108,6 +113,11 @@ namespace RecordConsumption.Services.SpecialitizationService
             return specializations;
         }
 
+        /// <summary>
+        /// Список специализации для конкретного врача 
+        /// </summary>
+        /// <param name="ids">Список айди специализации</param>
+        /// <returns></returns>
         public List<SpecializationDto> GetSpecializationsByIds(List<int> ids)
         {
             var specializationsDto = new List<SpecializationDto>();

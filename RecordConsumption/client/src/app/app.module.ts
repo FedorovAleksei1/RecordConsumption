@@ -16,6 +16,9 @@ import { AdminDoctorListComponent } from './pages/admin-page/shared/admin-doctor
 import { MatSelectModule } from '@angular/material/select'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { MatInputModule } from '@angular/material/input';
+import { HomeDoctorComponent } from './pages/home-page/shared/home-doctor/home-doctor.component';
+import { HomeSpecializationListComponent } from './pages/home-page/shared/home-specialization-list/home-specialization-list.component';
+import { HomeDoctorBySpecializationIdComponent } from './pages/home-page/shared/home-doctor-by-specialization-id/home-doctor-by-specialization-id.component';
 
 @NgModule({
   exports: [
@@ -30,6 +33,9 @@ import { MatInputModule } from '@angular/material/input';
     AdminPoliclinicComponent,
     AdminDoctorComponent,
     AdminDoctorListComponent,
+    HomeDoctorComponent,
+    HomeSpecializationListComponent,
+    HomeDoctorBySpecializationIdComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,7 +1,22 @@
 table {
   width: 100%;
 }
-.buttondadmin {
+.mat-raised-button {
   margin-right: 10px;
+}
+.mat-card {
+    background-color:antiquewhite rgb(255, 255, 255);
+    color: black;
+}
+.example-card {
+  max-width: 400px;
+  background-color: antiquewhite rgb(255, 255, 255);
+  color: black;
+}
+.mat-card-title {
+  color: red;
+}
 
+.buttonadmin {
+  margin-right: 10px;
 }

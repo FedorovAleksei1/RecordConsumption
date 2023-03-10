@@ -1,0 +1,57 @@
+<p>home-specialization-list works!</p>
+<mat-form-field appearance="fill">
+  <mat-label>Название</mat-label>
+  <input matInput [(ngModel)]="townName">
+  <br>
+</mat-form-field>
+<button mat-raised-button (click)="getSpecializationList()">Найти </button>
+<br>
+<div class="row">
+  <div class="col-4" *ngFor="let spec of specializationList" >
+    <a class="testA "[routerLink]="['./specialization/',spec.id]">
+      <div>
+        {{spec.name}}
+      </div>
+      <div>
+        Колличесво врачей: {{spec.doctorsCount}}
+      </div>
+    </a>
+  </div>
+</div>
+<br>
+<div></div>
+  <!--<div class="form-control" >--><!--*ngFor="let spec of specializationList"-->
+  <!--<a>{{spec.name}}</a>-->
+  <!--<mat-card class="example-card" *ngFor="let spec of specializationList">
+    <br>
+    <mat-card-header>
+      <mat-card-title>Shiba Inu</mat-card-title>
+      <mat-card-subtitle>Dog Breed</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      {{spec.name}} {{spec.doctorsCount}}
+    </mat-card-content>
+    <mat-card-actions>
+      <button class=" buttonadmin" mat-raised-button >-->
+  <!--[routerLink]="['./doctor/',doctor.id]"-->
+  <!--LIKE</button>
+        <button class=" buttonadmin" mat-raised-button>SHARE</button>
+      </mat-card-actions>
+    </mat-card>
+  </div>-->
+  <!--<div>
+    <mat-card class="example-card" *ngFor="let doctor of doctorList">
+      <br>
+      <mat-card-header>
+        <mat-card-title>Shiba Inu</mat-card-title>
+        <mat-card-subtitle>Dog Breed</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        {{doctor.firstName}} {{doctor.middleName}} {{doctor.lastName}}
+      </mat-card-content>
+      <mat-card-actions>
+        <button class=" buttonadmin" mat-raised-button [routerLink]="['./doctor/',doctor.id]">LIKE</button>
+        <button class=" buttonadmin" mat-raised-button>SHARE</button>
+      </mat-card-actions>
+    </mat-card>
+  </div>-->

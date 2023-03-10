@@ -5,8 +5,13 @@ import { AdminDoctorComponent } from './pages/admin-page/shared/admin-doctor/adm
 import { AdminPoliclinicComponent } from './pages/admin-page/shared/admin-policlinic/admin-policlinic.component';
 import { AdminSpecializationComponent } from './pages/admin-page/shared/admin-specialization/admin-specialization.component';
 import { AdminTownComponent } from './pages/admin-page/shared/admin-town/admin-town.component';
+import { HomeDoctorBySpecializationIdComponent } from './pages/home-page/shared/home-doctor-by-specialization-id/home-doctor-by-specialization-id.component';
+import { HomeSpecializationListComponent } from './pages/home-page/shared/home-specialization-list/home-specialization-list.component';
 
 const routes: Routes = [
+  { path: '', component: HomeSpecializationListComponent },
+ /* { path: 'spec/:id', component: HomeSpecializationListComponent },*/
+  { path: 'specialization/:id', component: HomeDoctorBySpecializationIdComponent },
   { path: 'admin', component: AdminPageComponent },
   { path: 'admin/town', component: AdminTownComponent },
   { path: 'admin/specialization', component: AdminSpecializationComponent },
