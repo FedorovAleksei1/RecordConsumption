@@ -10,7 +10,7 @@ import { Client, DoctorDto } from '../../../../services/Client';
 export class HomeDoctorBySpecializationIdComponent {
   doctorList: DoctorDto[] = [];
 
-  constructor(private client: Client, private activateRoute: ActivatedRoute,) {
+  constructor(private client: Client, private activateRoute: ActivatedRoute) {
      
     this.getdoctorList();
 

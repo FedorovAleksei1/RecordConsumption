@@ -17,7 +17,8 @@ namespace Domain.Models
         public int TownId { get; set; }
         public Town Town { get; set; }
 
-        public ICollection<Doctor> Doctors { get; set; }
+        public ICollection<Practice> Doctors { get; set; }
+        public ICollection<Photo> Photos { get; set; }
 
     }
 }

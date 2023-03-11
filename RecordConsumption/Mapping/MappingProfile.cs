@@ -19,9 +19,9 @@ namespace RecordConsumption.Mapping
 
             CreateMap<DoctorEditDto, Doctor>();
 
-            CreateMap<Doctor, DoctorEditDto>()
-                .ForMember(t => t.PracticesDto, rep => rep.MapFrom(ped => ped.Practices))
-                .ForMember(t => t.PolyclinicsId, rep => rep.MapFrom(ped => ped.Polyclinics.Select(p => p.Id).ToList())); 
+            CreateMap<Doctor, DoctorEditDto>();
+                //.ForMember(t => t.PracticesDto, rep => rep.MapFrom(ped => ped.Practices))
+                //.ForMember(t => t.PolyclinicsId, rep => rep.MapFrom(ped => ped.Polyclinics.Select(p => p.Id).ToList())); 
 
             CreateMap<Polyclinic, PolyclinicDto>().ReverseMap();
 

@@ -1,19 +1,16 @@
 <p>home-doctor-by-specialization-id works!</p>
 
-<mat-form-field appearance="fill">
-</mat-form-field>
-<button mat-raised-button (click)="getdoctorList()">Найти </button>
-<br>
+
 <div class="row">
-  <div class="col-4" *ngFor="let doc of doctorList"> <!--[routerLink]="[]"-->
-    <a class="testA ">
+  <div class="col-4" *ngFor="let doc of doctorList"> 
+    <a class="testA " [routerLink]="['/doctor/',doc.id]">
       <div>
-        {{doc.firstName}}
+        {{doc.lastName}}        
         <div>
-          {{doc.middleName}}
+          {{doc.firstName}}        
         </div>
         <div>
-          {{doc.lastName}}
+          {{doc.middleName}}
         </div>
         <div>
           {{doc.shortDesk}}

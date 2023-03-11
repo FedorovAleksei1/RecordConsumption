@@ -16,6 +16,8 @@ namespace Domain.Models
         public Doctor Doctor { get; set; }
         public int SpecializationId { get; set; }
         public Specialization Specialization { get; set; }
+        public int PolyclinicId { get; set; }
+        public Polyclinic Polyclinic { get; set; }
 
     }
 }

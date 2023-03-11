@@ -15,7 +15,8 @@ namespace Domain.Models
         public int Phone { get; set; }
         public string LongDesk { get; set; }
         public string ShortDesk { get; set; }
+        public int? PhotoId { get; set; }
+        public Photo Photo { get; set; }
         public ICollection<Practice> Practices { get; set; }
-        public ICollection<Polyclinic> Polyclinics { get; set; }
     }
 }

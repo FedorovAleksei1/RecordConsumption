@@ -28,7 +28,7 @@ namespace RecordConsumption.Services.PracticeService
             _context.Practices.AddRange(practices);
             _context.SaveChanges();
         }
-        //todo переписать нахуй
+        
         public void EditRange(List<PracticeEditDto> practicesDto)
         {
             if (practicesDto == null || practicesDto.Count == 0)
@@ -66,13 +66,13 @@ namespace RecordConsumption.Services.PracticeService
         public List<PracticeDto> GetActualPracriceList(string town = null)
         {
             var practics = _context.Practices
-                .Include(x => x.Doctor.Polyclinics)
                 .Include(x => x.Specialization)
+                .Include(x => x.Polyclinic)
                 .Where(p => p.End == null);
 
             if (!string.IsNullOrEmpty(town))
             {
-                practics = practics.Where(x => x.Doctor.Polyclinics.Any(a => a.Town.Name.ToLower().Contains(town.ToLower())));
+                practics = practics.Where(x => x.Polyclinic.Town.Name.Contains(town.ToLower()));
             }
 
             return _mapper.Map<List<PracticeDto>>(practics);

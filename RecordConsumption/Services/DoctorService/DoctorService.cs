@@ -43,7 +43,6 @@ namespace RecordConsumption.Services.DoctorService
 
             var doctor = _context.Doctors
                 .Include(d => d.Practices)
-                .Include(d => d.Polyclinics)
                 .FirstOrDefault(t => t.Id == id);
 
             if (doctor == null)
@@ -81,7 +80,7 @@ namespace RecordConsumption.Services.DoctorService
 
             var doctor = _mapper.Map<Doctor>(doctorDto);
 
-            doctor.Polyclinics = _context.Polyclinics.Where(p => doctorDto.PolyclinicsId.Contains(p.Id)).ToList();
+            //doctor.Polyclinics = _context.Polyclinics.Where(p => doctorDto.PolyclinicsId.Contains(p.Id)).ToList();
 
             _context.Doctors.Add(doctor);
             _context.SaveChanges();

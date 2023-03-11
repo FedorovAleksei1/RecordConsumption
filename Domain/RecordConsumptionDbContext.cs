@@ -15,5 +15,6 @@ namespace Domain
         public DbSet<Practice> Practices { get; set; }
         public DbSet<Specialization> Specializations { get; set; }
         public DbSet<Town> Towns { get; set; }
+        public DbSet<Photo> Photos { get; set; }
     }
 }
