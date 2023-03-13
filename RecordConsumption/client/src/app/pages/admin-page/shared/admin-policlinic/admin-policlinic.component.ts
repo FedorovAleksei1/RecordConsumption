@@ -20,28 +20,28 @@ export class AdminPoliclinicComponent {
   }
 
   getTownList() {
-    this.client.getList4().subscribe(data => this.townList = data);
+    this.client.adminTownGetList().subscribe(data => this.townList = data);
   }
 
 
   getPoliclinicList() {
-    this.client.getList2().subscribe(data => this.policlinicList = data);
+    this.client.adminPolyclinicGetList().subscribe(data => this.policlinicList = data);
   }
 
   createPoliclinic() {
-    this.client.create2(this.newPolyclinic).subscribe(() => {
+    this.client.adminPolyclinicCreate(this.newPolyclinic).subscribe(() => {
       this.newPolyclinic = new PolyclinicDto();
       this.getPoliclinicList();
     });
   }
 
   editPoliclinic(policlinic: PolyclinicDto) {
-    this.client.edit2(policlinic).subscribe(() => { this.getPoliclinicList() });
+    this.client.adminPolyclinicEdit(policlinic).subscribe(() => { this.getPoliclinicList() });
   }
 
   removePoliclinic(policlinic: PolyclinicDto) {
     let test = policlinic.id ?? 0;
-    this.client.delete2(test).subscribe(() => { this.getPoliclinicList() });
+    this.client.adminPolyclinicDelete(test).subscribe(() => { this.getPoliclinicList() });
   }
 
 

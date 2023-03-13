@@ -35,7 +35,7 @@ namespace RecordConsumption.Services.DoctorService
 
         }
 
-        public DoctorEditDto Get(int id)
+        public DoctorEditDto GetForEdit(int id)
         {
             var doctorDto = new DoctorEditDto();
             if (id == 0)
@@ -52,7 +52,6 @@ namespace RecordConsumption.Services.DoctorService
             var specializationsDto = _specializationService.GetSpecializationsByIds(specializationIds);
 
             doctorDto = _mapper.Map<DoctorEditDto>(doctor);
-            doctorDto.SpecializationDto = specializationsDto;
 
             return doctorDto;
         }
@@ -74,13 +73,8 @@ namespace RecordConsumption.Services.DoctorService
             if (doctorDto.PracticesDto == null || doctorDto.PracticesDto.Count == 0)
                 throw new Exception("Укажите практику");
 
-            if (!doctorDto.PolyclinicsId.Any())
-                throw new Exception("Укажите полеклиники");
-
 
             var doctor = _mapper.Map<Doctor>(doctorDto);
-
-            //doctor.Polyclinics = _context.Polyclinics.Where(p => doctorDto.PolyclinicsId.Contains(p.Id)).ToList();
 
             _context.Doctors.Add(doctor);
             _context.SaveChanges();
@@ -134,9 +128,14 @@ namespace RecordConsumption.Services.DoctorService
             _context.SaveChanges();
         }
 
-        public List<DoctorDto> GetDoctorsBySpecializationId(int id)
+        public List<DoctorDto> GetDoctorsBySpecializationId(int id, int page = 1, int take = 5)
         {
-            var doctors = _context.Doctors.Include(x => x.Practices).ToList();
+            var doctors = _context.Doctors
+                .Include(x => x.Practices)
+                .OrderBy(d => d.Id)
+                .Skip((page - 1) * take)
+                .Take(take)
+                .ToList();
             var actualDoctors = doctors.SelectMany(x => x.Practices).Where(x => x.SpecializationId == id && x.End == null).Select(x => x.Doctor).ToList();  
             return _mapper.Map<List<DoctorDto>>(actualDoctors);
         }

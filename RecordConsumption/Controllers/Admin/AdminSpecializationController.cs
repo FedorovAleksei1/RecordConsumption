@@ -9,8 +9,7 @@ namespace RecordConsumption.Controllers.Admin
 {
 
     [ApiController]
-
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     public class AdminSpecializationController : ControllerBase
     {
         private readonly ISpecializationService _specializationService;
@@ -19,38 +18,38 @@ namespace RecordConsumption.Controllers.Admin
             _specializationService = specializationService;
         }
 
-        [HttpGet("[action]")]
-        public List<SpecializationDto> GetList()
+        [HttpGet]
+        public List<SpecializationDto> AdminSpecializationGetList()
         {
             var specializationDtoList = _specializationService.GetList();
             return specializationDtoList;
         }
 
 
-        [HttpGet("[action]/{id}")]
-        public SpecializationDto Get(int id)
+        [HttpGet]
+        public SpecializationDto AdminSpecializationGet(int id)
         {
             var specializationDto = _specializationService.Get(id);
             return specializationDto;
         }
 
 
-        [HttpPost("[action]")]
-        public void Create([FromBody] SpecializationDto specialization)
+        [HttpPost]
+        public void AdminSpecializationCreate([FromBody] SpecializationDto specialization)
         {
             _specializationService.Create(specialization);
             return;
         }
 
-        [HttpPost("[action]")]
-        public void Edit([FromBody] SpecializationDto specialization)
+        [HttpPost]
+        public void AdminSpecializationEdit([FromBody] SpecializationDto specialization)
         {
             _specializationService.Edit(specialization);
             return;
         }
 
-        [HttpPost("[action]/{id}")]
-        public void Delete(int id)
+        [HttpDelete]
+        public void AdminSpecializationDelete(int id)
         {
             _specializationService.Delete(id);
             return;

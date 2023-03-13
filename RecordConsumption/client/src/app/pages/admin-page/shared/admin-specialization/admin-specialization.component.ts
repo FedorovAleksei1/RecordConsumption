@@ -15,22 +15,22 @@ export class AdminSpecializationComponent {
   }
 
   getSpecializationList() {
-    this.client.getList3().subscribe(data => this.specializationList = data);
+    this.client.adminSpecializationGetList().subscribe(data => this.specializationList = data);
   }
 
   createSpecialization() {
-    this.client.create3(this.newSpecialization).subscribe(() => {
+    this.client.adminSpecializationCreate(this.newSpecialization).subscribe(() => {
       this.newSpecialization = new SpecializationDto();
       this.getSpecializationList();
     });
   }
 
   editSpecialization(specialization: SpecializationDto) {
-    this.client.edit3(specialization).subscribe(() => { this.getSpecializationList() });
+    this.client.adminSpecializationEdit(specialization).subscribe(() => { this.getSpecializationList() });
   }
 
   removeSpecialization(specialization: SpecializationDto) {
     let test = specialization.id ?? 0;
-    this.client.delete3(test).subscribe(() => { this.getSpecializationList() });
+    this.client.adminSpecializationDelete(test).subscribe(() => { this.getSpecializationList() });
   }
 }

@@ -17,13 +17,13 @@ namespace RecordConsumption.Mapping
 
             CreateMap<Doctor, DoctorDto>().ReverseMap();
 
+            CreateMap<Doctor, DoctorEditDto>();
+
             CreateMap<DoctorEditDto, Doctor>();
 
-            CreateMap<Doctor, DoctorEditDto>();
-                //.ForMember(t => t.PracticesDto, rep => rep.MapFrom(ped => ped.Practices))
-                //.ForMember(t => t.PolyclinicsId, rep => rep.MapFrom(ped => ped.Polyclinics.Select(p => p.Id).ToList())); 
-
             CreateMap<Polyclinic, PolyclinicDto>().ReverseMap();
+
+            CreateMap<PolyclinicDto, Polyclinic>().ReverseMap();
 
             CreateMap<Specialization, SpecializationDto>();
 

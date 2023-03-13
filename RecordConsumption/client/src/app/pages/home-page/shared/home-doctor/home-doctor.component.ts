@@ -26,11 +26,11 @@ export class HomeDoctorComponent {
     });
   }
   getPoliclinicList() {
-    this.client.getList2().subscribe(data => this.policlinicList = data);
+    this.client.adminPolyclinicGetList().subscribe(data => this.policlinicList = data);
   }
 
   getSpecializationList() {
-    this.client.getList3().subscribe(data => this.specializationList = data);
+    this.client.adminSpecializationGetList().subscribe(data => this.specializationList = data);
   }
 
   getPoliclinicById(id: number): PolyclinicDto | undefined {

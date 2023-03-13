@@ -14,6 +14,6 @@ export class AdminDoctorListComponent {
   }
 
   getDoctorList() {
-    this.client.getList().subscribe(data => this.doctorList = data);
+    this.client.adminDoctorGetList().subscribe(data => this.doctorList = data);
   }
 }

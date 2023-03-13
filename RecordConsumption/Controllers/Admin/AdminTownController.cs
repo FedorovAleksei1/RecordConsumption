@@ -6,8 +6,7 @@ using System.Collections.Generic;
 namespace RecordConsumption.Controllers.Admin
 {
     [ApiController]
-
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     public class AdminTownController : ControllerBase
     {
         private readonly ITownService _townService;
@@ -16,38 +15,38 @@ namespace RecordConsumption.Controllers.Admin
             _townService = townService;
         }
 
-        [HttpGet("[action]")]
-        public List<TownDto> GetList()
+        [HttpGet]
+        public List<TownDto> AdminTownGetList()
         {
             var townDtoList = _townService.GetList();
             return townDtoList;
         }
 
 
-        [HttpGet("[action]/{id}")]
-        public TownDto Get(int id)
+        [HttpGet]
+        public TownDto AdminTownGet(int id)
         {
             var townDto = _townService.Get(id);
             return townDto;
         }
 
 
-        [HttpPost("[action]")]
-        public void Create([FromBody] TownDto town)
+        [HttpPost]
+        public void AdminTownCreate([FromBody] TownDto town)
         {
             _townService.Create(town);
             return;
         }
 
-        [HttpPost("[action]")]
-        public void Edit([FromBody] TownDto town)
+        [HttpPost]
+        public void AdminTownEdit([FromBody] TownDto town)
         {
             _townService.Edit(town);
             return;
         }
 
-        [HttpPost("[action]/{id}")]
-        public void Delete(int id)
+        [HttpDelete]
+        public void AdminTownDelete(int id)
         {
             _townService.Delete(id);
             return;

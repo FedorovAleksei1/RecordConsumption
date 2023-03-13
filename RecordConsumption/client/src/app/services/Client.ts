@@ -29,8 +29,8 @@ export class Client {
   /**
    * @return Success
    */
-  getList(): Observable<DoctorDto[]> {
-    let url_ = this.baseUrl + "/api/AdminDoctor/GetList";
+  adminDoctorGetList(): Observable<DoctorDto[]> {
+    let url_ = this.baseUrl + "/api/AdminDoctor/AdminDoctorGetList";
     url_ = url_.replace(/[?&]$/, "");
 
     let options_: any = {
@@ -42,11 +42,11 @@ export class Client {
     };
 
     return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_: any) => {
-      return this.processGetList(response_);
+      return this.processAdminDoctorGetList(response_);
     })).pipe(_observableCatch((response_: any) => {
       if (response_ instanceof HttpResponseBase) {
         try {
-          return this.processGetList(response_ as any);
+          return this.processAdminDoctorGetList(response_ as any);
         } catch (e) {
           return _observableThrow(e) as any as Observable<DoctorDto[]>;
         }
@@ -55,7 +55,7 @@ export class Client {
     }));
   }
 
-  protected processGetList(response: HttpResponseBase): Observable<DoctorDto[]> {
+  protected processAdminDoctorGetList(response: HttpResponseBase): Observable<DoctorDto[]> {
     const status = response.status;
     const responseBlob =
       response instanceof HttpResponse ? response.body :
@@ -88,8 +88,8 @@ export class Client {
    * @param id (optional) 
    * @return Success
    */
-  get(id: number | undefined): Observable<DoctorEditDto> {
-    let url_ = this.baseUrl + "/api/AdminDoctor/Get?";
+  adminDoctorGet(id: number | undefined): Observable<DoctorEditDto> {
+    let url_ = this.baseUrl + "/api/AdminDoctor/AdminDoctorGet?";
     if (id === null)
       throw new Error("The parameter 'id' cannot be null.");
     else if (id !== undefined)
@@ -105,11 +105,11 @@ export class Client {
     };
 
     return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_: any) => {
-      return this.processGet(response_);
+      return this.processAdminDoctorGet(response_);
     })).pipe(_observableCatch((response_: any) => {
       if (response_ instanceof HttpResponseBase) {
         try {
-          return this.processGet(response_ as any);
+          return this.processAdminDoctorGet(response_ as any);
         } catch (e) {
           return _observableThrow(e) as any as Observable<DoctorEditDto>;
         }
@@ -118,7 +118,7 @@ export class Client {
     }));
   }
 
-  protected processGet(response: HttpResponseBase): Observable<DoctorEditDto> {
+  protected processAdminDoctorGet(response: HttpResponseBase): Observable<DoctorEditDto> {
     const status = response.status;
     const responseBlob =
       response instanceof HttpResponse ? response.body :
@@ -144,8 +144,8 @@ export class Client {
    * @param body (optional) 
    * @return Success
    */
-  create(body: DoctorEditDto | undefined): Observable<number> {
-    let url_ = this.baseUrl + "/api/AdminDoctor/Create";
+  adminDoctorCreate(body: DoctorEditDto | undefined): Observable<number> {
+    let url_ = this.baseUrl + "/api/AdminDoctor/AdminDoctorCreate";
     url_ = url_.replace(/[?&]$/, "");
 
     const content_ = JSON.stringify(body);
@@ -161,11 +161,11 @@ export class Client {
     };
 
     return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_: any) => {
-      return this.processCreate(response_);
+      return this.processAdminDoctorCreate(response_);
     })).pipe(_observableCatch((response_: any) => {
       if (response_ instanceof HttpResponseBase) {
         try {
-          return this.processCreate(response_ as any);
+          return this.processAdminDoctorCreate(response_ as any);
         } catch (e) {
           return _observableThrow(e) as any as Observable<number>;
         }
@@ -174,7 +174,7 @@ export class Client {
     }));
   }
 
-  protected processCreate(response: HttpResponseBase): Observable<number> {
+  protected processAdminDoctorCreate(response: HttpResponseBase): Observable<number> {
     const status = response.status;
     const responseBlob =
       response instanceof HttpResponse ? response.body :
@@ -201,8 +201,8 @@ export class Client {
    * @param body (optional) 
    * @return Success
    */
-  edit(body: DoctorEditDto | undefined): Observable<void> {
-    let url_ = this.baseUrl + "/api/AdminDoctor/Edit";
+  adminDoctorEdit(body: DoctorEditDto | undefined): Observable<void> {
+    let url_ = this.baseUrl + "/api/AdminDoctor/AdminDoctorEdit";
     url_ = url_.replace(/[?&]$/, "");
 
     const content_ = JSON.stringify(body);
@@ -217,11 +217,11 @@ export class Client {
     };
 
     return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_: any) => {
-      return this.processEdit(response_);
+      return this.processAdminDoctorEdit(response_);
     })).pipe(_observableCatch((response_: any) => {
       if (response_ instanceof HttpResponseBase) {
         try {
-          return this.processEdit(response_ as any);
+          return this.processAdminDoctorEdit(response_ as any);
         } catch (e) {
           return _observableThrow(e) as any as Observable<void>;
         }
@@ -230,7 +230,7 @@ export class Client {
     }));
   }
 
-  protected processEdit(response: HttpResponseBase): Observable<void> {
+  protected processAdminDoctorEdit(response: HttpResponseBase): Observable<void> {
     const status = response.status;
     const responseBlob =
       response instanceof HttpResponse ? response.body :
@@ -253,8 +253,8 @@ export class Client {
    * @param id (optional) 
    * @return Success
    */
-  delete(id: number | undefined): Observable<void> {
-    let url_ = this.baseUrl + "/api/AdminDoctor/Delete?";
+  adminDoctorDelete(id: number | undefined): Observable<void> {
+    let url_ = this.baseUrl + "/api/AdminDoctor/AdminDoctorDelete?";
     if (id === null)
       throw new Error("The parameter 'id' cannot be null.");
     else if (id !== undefined)
@@ -268,12 +268,12 @@ export class Client {
       })
     };
 
-    return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_: any) => {
-      return this.processDelete(response_);
+    return this.http.request("delete", url_, options_).pipe(_observableMergeMap((response_: any) => {
+      return this.processAdminDoctorDelete(response_);
     })).pipe(_observableCatch((response_: any) => {
       if (response_ instanceof HttpResponseBase) {
         try {
-          return this.processDelete(response_ as any);
+          return this.processAdminDoctorDelete(response_ as any);
         } catch (e) {
           return _observableThrow(e) as any as Observable<void>;
         }
@@ -282,7 +282,7 @@ export class Client {
     }));
   }
 
-  protected processDelete(response: HttpResponseBase): Observable<void> {
+  protected processAdminDoctorDelete(response: HttpResponseBase): Observable<void> {
     const status = response.status;
     const responseBlob =
       response instanceof HttpResponse ? response.body :
@@ -304,8 +304,8 @@ export class Client {
   /**
    * @return Success
    */
-  getList2(): Observable<PolyclinicDto[]> {
-    let url_ = this.baseUrl + "/api/AdminPolyclinic/GetList";
+  adminPolyclinicGetList(): Observable<PolyclinicDto[]> {
+    let url_ = this.baseUrl + "/api/AdminPolyclinic/AdminPolyclinicGetList";
     url_ = url_.replace(/[?&]$/, "");
 
     let options_: any = {
@@ -317,11 +317,11 @@ export class Client {
     };
 
     return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_: any) => {
-      return this.processGetList2(response_);
+      return this.processAdminPolyclinicGetList(response_);
     })).pipe(_observableCatch((response_: any) => {
       if (response_ instanceof HttpResponseBase) {
         try {
-          return this.processGetList2(response_ as any);
+          return this.processAdminPolyclinicGetList(response_ as any);
         } catch (e) {
           return _observableThrow(e) as any as Observable<PolyclinicDto[]>;
         }
@@ -330,7 +330,7 @@ export class Client {
     }));
   }
 
-  protected processGetList2(response: HttpResponseBase): Observable<PolyclinicDto[]> {
+  protected processAdminPolyclinicGetList(response: HttpResponseBase): Observable<PolyclinicDto[]> {
     const status = response.status;
     const responseBlob =
       response instanceof HttpResponse ? response.body :
@@ -360,13 +360,15 @@ export class Client {
   }
 
   /**
+   * @param id (optional) 
    * @return Success
    */
-  get2(id: number): Observable<PolyclinicDto> {
-    let url_ = this.baseUrl + "/api/AdminPolyclinic/Get/{id}";
-    if (id === undefined || id === null)
-      throw new Error("The parameter 'id' must be defined.");
-    url_ = url_.replace("{id}", encodeURIComponent("" + id));
+  adminPolyclinicGet(id: number | undefined): Observable<PolyclinicDto> {
+    let url_ = this.baseUrl + "/api/AdminPolyclinic/AdminPolyclinicGet?";
+    if (id === null)
+      throw new Error("The parameter 'id' cannot be null.");
+    else if (id !== undefined)
+      url_ += "id=" + encodeURIComponent("" + id) + "&";
     url_ = url_.replace(/[?&]$/, "");
 
     let options_: any = {
@@ -378,11 +380,11 @@ export class Client {
     };
 
     return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_: any) => {
-      return this.processGet2(response_);
+      return this.processAdminPolyclinicGet(response_);
     })).pipe(_observableCatch((response_: any) => {
       if (response_ instanceof HttpResponseBase) {
         try {
-          return this.processGet2(response_ as any);
+          return this.processAdminPolyclinicGet(response_ as any);
         } catch (e) {
           return _observableThrow(e) as any as Observable<PolyclinicDto>;
         }
@@ -391,7 +393,7 @@ export class Client {
     }));
   }
 
-  protected processGet2(response: HttpResponseBase): Observable<PolyclinicDto> {
+  protected processAdminPolyclinicGet(response: HttpResponseBase): Observable<PolyclinicDto> {
     const status = response.status;
     const responseBlob =
       response instanceof HttpResponse ? response.body :
@@ -417,8 +419,8 @@ export class Client {
    * @param body (optional) 
    * @return Success
    */
-  create2(body: PolyclinicDto | undefined): Observable<void> {
-    let url_ = this.baseUrl + "/api/AdminPolyclinic/Create";
+  adminPolyclinicCreate(body: PolyclinicDto | undefined): Observable<void> {
+    let url_ = this.baseUrl + "/api/AdminPolyclinic/AdminPolyclinicCreate";
     url_ = url_.replace(/[?&]$/, "");
 
     const content_ = JSON.stringify(body);
@@ -433,11 +435,11 @@ export class Client {
     };
 
     return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_: any) => {
-      return this.processCreate2(response_);
+      return this.processAdminPolyclinicCreate(response_);
     })).pipe(_observableCatch((response_: any) => {
       if (response_ instanceof HttpResponseBase) {
         try {
-          return this.processCreate2(response_ as any);
+          return this.processAdminPolyclinicCreate(response_ as any);
         } catch (e) {
           return _observableThrow(e) as any as Observable<void>;
         }
@@ -446,7 +448,7 @@ export class Client {
     }));
   }
 
-  protected processCreate2(response: HttpResponseBase): Observable<void> {
+  protected processAdminPolyclinicCreate(response: HttpResponseBase): Observable<void> {
     const status = response.status;
     const responseBlob =
       response instanceof HttpResponse ? response.body :
@@ -469,8 +471,8 @@ export class Client {
    * @param body (optional) 
    * @return Success
    */
-  edit2(body: PolyclinicDto | undefined): Observable<void> {
-    let url_ = this.baseUrl + "/api/AdminPolyclinic/Edit";
+  adminPolyclinicEdit(body: PolyclinicDto | undefined): Observable<void> {
+    let url_ = this.baseUrl + "/api/AdminPolyclinic/AdminPolyclinicEdit";
     url_ = url_.replace(/[?&]$/, "");
 
     const content_ = JSON.stringify(body);
@@ -485,11 +487,11 @@ export class Client {
     };
 
     return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_: any) => {
-      return this.processEdit2(response_);
+      return this.processAdminPolyclinicEdit(response_);
     })).pipe(_observableCatch((response_: any) => {
       if (response_ instanceof HttpResponseBase) {
         try {
-          return this.processEdit2(response_ as any);
+          return this.processAdminPolyclinicEdit(response_ as any);
         } catch (e) {
           return _observableThrow(e) as any as Observable<void>;
         }
@@ -498,7 +500,7 @@ export class Client {
     }));
   }
 
-  protected processEdit2(response: HttpResponseBase): Observable<void> {
+  protected processAdminPolyclinicEdit(response: HttpResponseBase): Observable<void> {
     const status = response.status;
     const responseBlob =
       response instanceof HttpResponse ? response.body :
@@ -518,13 +520,15 @@ export class Client {
   }
 
   /**
+   * @param id (optional) 
    * @return Success
    */
-  delete2(id: number): Observable<void> {
-    let url_ = this.baseUrl + "/api/AdminPolyclinic/Delete/{id}";
-    if (id === undefined || id === null)
-      throw new Error("The parameter 'id' must be defined.");
-    url_ = url_.replace("{id}", encodeURIComponent("" + id));
+  adminPolyclinicDelete(id: number | undefined): Observable<void> {
+    let url_ = this.baseUrl + "/api/AdminPolyclinic/AdminPolyclinicDelete?";
+    if (id === null)
+      throw new Error("The parameter 'id' cannot be null.");
+    else if (id !== undefined)
+      url_ += "id=" + encodeURIComponent("" + id) + "&";
     url_ = url_.replace(/[?&]$/, "");
 
     let options_: any = {
@@ -534,12 +538,12 @@ export class Client {
       })
     };
 
-    return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_: any) => {
-      return this.processDelete2(response_);
+    return this.http.request("delete", url_, options_).pipe(_observableMergeMap((response_: any) => {
+      return this.processAdminPolyclinicDelete(response_);
     })).pipe(_observableCatch((response_: any) => {
       if (response_ instanceof HttpResponseBase) {
         try {
-          return this.processDelete2(response_ as any);
+          return this.processAdminPolyclinicDelete(response_ as any);
         } catch (e) {
           return _observableThrow(e) as any as Observable<void>;
         }
@@ -548,7 +552,7 @@ export class Client {
     }));
   }
 
-  protected processDelete2(response: HttpResponseBase): Observable<void> {
+  protected processAdminPolyclinicDelete(response: HttpResponseBase): Observable<void> {
     const status = response.status;
     const responseBlob =
       response instanceof HttpResponse ? response.body :
@@ -570,8 +574,8 @@ export class Client {
   /**
    * @return Success
    */
-  getList3(): Observable<SpecializationDto[]> {
-    let url_ = this.baseUrl + "/api/AdminSpecialization/GetList";
+  adminSpecializationGetList(): Observable<SpecializationDto[]> {
+    let url_ = this.baseUrl + "/api/AdminSpecialization/AdminSpecializationGetList";
     url_ = url_.replace(/[?&]$/, "");
 
     let options_: any = {
@@ -583,11 +587,11 @@ export class Client {
     };
 
     return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_: any) => {
-      return this.processGetList3(response_);
+      return this.processAdminSpecializationGetList(response_);
     })).pipe(_observableCatch((response_: any) => {
       if (response_ instanceof HttpResponseBase) {
         try {
-          return this.processGetList3(response_ as any);
+          return this.processAdminSpecializationGetList(response_ as any);
         } catch (e) {
           return _observableThrow(e) as any as Observable<SpecializationDto[]>;
         }
@@ -596,7 +600,7 @@ export class Client {
     }));
   }
 
-  protected processGetList3(response: HttpResponseBase): Observable<SpecializationDto[]> {
+  protected processAdminSpecializationGetList(response: HttpResponseBase): Observable<SpecializationDto[]> {
     const status = response.status;
     const responseBlob =
       response instanceof HttpResponse ? response.body :
@@ -626,13 +630,15 @@ export class Client {
   }
 
   /**
+   * @param id (optional) 
    * @return Success
    */
-  get3(id: number): Observable<SpecializationDto> {
-    let url_ = this.baseUrl + "/api/AdminSpecialization/Get/{id}";
-    if (id === undefined || id === null)
-      throw new Error("The parameter 'id' must be defined.");
-    url_ = url_.replace("{id}", encodeURIComponent("" + id));
+  adminSpecializationGet(id: number | undefined): Observable<SpecializationDto> {
+    let url_ = this.baseUrl + "/api/AdminSpecialization/AdminSpecializationGet?";
+    if (id === null)
+      throw new Error("The parameter 'id' cannot be null.");
+    else if (id !== undefined)
+      url_ += "id=" + encodeURIComponent("" + id) + "&";
     url_ = url_.replace(/[?&]$/, "");
 
     let options_: any = {
@@ -644,11 +650,11 @@ export class Client {
     };
 
     return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_: any) => {
-      return this.processGet3(response_);
+      return this.processAdminSpecializationGet(response_);
     })).pipe(_observableCatch((response_: any) => {
       if (response_ instanceof HttpResponseBase) {
         try {
-          return this.processGet3(response_ as any);
+          return this.processAdminSpecializationGet(response_ as any);
         } catch (e) {
           return _observableThrow(e) as any as Observable<SpecializationDto>;
         }
@@ -657,7 +663,7 @@ export class Client {
     }));
   }
 
-  protected processGet3(response: HttpResponseBase): Observable<SpecializationDto> {
+  protected processAdminSpecializationGet(response: HttpResponseBase): Observable<SpecializationDto> {
     const status = response.status;
     const responseBlob =
       response instanceof HttpResponse ? response.body :
@@ -683,8 +689,8 @@ export class Client {
    * @param body (optional) 
    * @return Success
    */
-  create3(body: SpecializationDto | undefined): Observable<void> {
-    let url_ = this.baseUrl + "/api/AdminSpecialization/Create";
+  adminSpecializationCreate(body: SpecializationDto | undefined): Observable<void> {
+    let url_ = this.baseUrl + "/api/AdminSpecialization/AdminSpecializationCreate";
     url_ = url_.replace(/[?&]$/, "");
 
     const content_ = JSON.stringify(body);
@@ -699,11 +705,11 @@ export class Client {
     };
 
     return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_: any) => {
-      return this.processCreate3(response_);
+      return this.processAdminSpecializationCreate(response_);
     })).pipe(_observableCatch((response_: any) => {
       if (response_ instanceof HttpResponseBase) {
         try {
-          return this.processCreate3(response_ as any);
+          return this.processAdminSpecializationCreate(response_ as any);
         } catch (e) {
           return _observableThrow(e) as any as Observable<void>;
         }
@@ -712,7 +718,7 @@ export class Client {
     }));
   }
 
-  protected processCreate3(response: HttpResponseBase): Observable<void> {
+  protected processAdminSpecializationCreate(response: HttpResponseBase): Observable<void> {
     const status = response.status;
     const responseBlob =
       response instanceof HttpResponse ? response.body :
@@ -735,8 +741,8 @@ export class Client {
    * @param body (optional) 
    * @return Success
    */
-  edit3(body: SpecializationDto | undefined): Observable<void> {
-    let url_ = this.baseUrl + "/api/AdminSpecialization/Edit";
+  adminSpecializationEdit(body: SpecializationDto | undefined): Observable<void> {
+    let url_ = this.baseUrl + "/api/AdminSpecialization/AdminSpecializationEdit";
     url_ = url_.replace(/[?&]$/, "");
 
     const content_ = JSON.stringify(body);
@@ -751,11 +757,11 @@ export class Client {
     };
 
     return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_: any) => {
-      return this.processEdit3(response_);
+      return this.processAdminSpecializationEdit(response_);
     })).pipe(_observableCatch((response_: any) => {
       if (response_ instanceof HttpResponseBase) {
         try {
-          return this.processEdit3(response_ as any);
+          return this.processAdminSpecializationEdit(response_ as any);
         } catch (e) {
           return _observableThrow(e) as any as Observable<void>;
         }
@@ -764,7 +770,7 @@ export class Client {
     }));
   }
 
-  protected processEdit3(response: HttpResponseBase): Observable<void> {
+  protected processAdminSpecializationEdit(response: HttpResponseBase): Observable<void> {
     const status = response.status;
     const responseBlob =
       response instanceof HttpResponse ? response.body :
@@ -784,13 +790,15 @@ export class Client {
   }
 
   /**
+   * @param id (optional) 
    * @return Success
    */
-  delete3(id: number): Observable<void> {
-    let url_ = this.baseUrl + "/api/AdminSpecialization/Delete/{id}";
-    if (id === undefined || id === null)
-      throw new Error("The parameter 'id' must be defined.");
-    url_ = url_.replace("{id}", encodeURIComponent("" + id));
+  adminSpecializationDelete(id: number | undefined): Observable<void> {
+    let url_ = this.baseUrl + "/api/AdminSpecialization/AdminSpecializationDelete?";
+    if (id === null)
+      throw new Error("The parameter 'id' cannot be null.");
+    else if (id !== undefined)
+      url_ += "id=" + encodeURIComponent("" + id) + "&";
     url_ = url_.replace(/[?&]$/, "");
 
     let options_: any = {
@@ -800,12 +808,12 @@ export class Client {
       })
     };
 
-    return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_: any) => {
-      return this.processDelete3(response_);
+    return this.http.request("delete", url_, options_).pipe(_observableMergeMap((response_: any) => {
+      return this.processAdminSpecializationDelete(response_);
     })).pipe(_observableCatch((response_: any) => {
       if (response_ instanceof HttpResponseBase) {
         try {
-          return this.processDelete3(response_ as any);
+          return this.processAdminSpecializationDelete(response_ as any);
         } catch (e) {
           return _observableThrow(e) as any as Observable<void>;
         }
@@ -814,7 +822,7 @@ export class Client {
     }));
   }
 
-  protected processDelete3(response: HttpResponseBase): Observable<void> {
+  protected processAdminSpecializationDelete(response: HttpResponseBase): Observable<void> {
     const status = response.status;
     const responseBlob =
       response instanceof HttpResponse ? response.body :
@@ -836,8 +844,8 @@ export class Client {
   /**
    * @return Success
    */
-  getList4(): Observable<TownDto[]> {
-    let url_ = this.baseUrl + "/api/AdminTown/GetList";
+  adminTownGetList(): Observable<TownDto[]> {
+    let url_ = this.baseUrl + "/api/AdminTown/AdminTownGetList";
     url_ = url_.replace(/[?&]$/, "");
 
     let options_: any = {
@@ -849,11 +857,11 @@ export class Client {
     };
 
     return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_: any) => {
-      return this.processGetList4(response_);
+      return this.processAdminTownGetList(response_);
     })).pipe(_observableCatch((response_: any) => {
       if (response_ instanceof HttpResponseBase) {
         try {
-          return this.processGetList4(response_ as any);
+          return this.processAdminTownGetList(response_ as any);
         } catch (e) {
           return _observableThrow(e) as any as Observable<TownDto[]>;
         }
@@ -862,7 +870,7 @@ export class Client {
     }));
   }
 
-  protected processGetList4(response: HttpResponseBase): Observable<TownDto[]> {
+  protected processAdminTownGetList(response: HttpResponseBase): Observable<TownDto[]> {
     const status = response.status;
     const responseBlob =
       response instanceof HttpResponse ? response.body :
@@ -892,13 +900,15 @@ export class Client {
   }
 
   /**
+   * @param id (optional) 
    * @return Success
    */
-  get4(id: number): Observable<TownDto> {
-    let url_ = this.baseUrl + "/api/AdminTown/Get/{id}";
-    if (id === undefined || id === null)
-      throw new Error("The parameter 'id' must be defined.");
-    url_ = url_.replace("{id}", encodeURIComponent("" + id));
+  adminTownGet(id: number | undefined): Observable<TownDto> {
+    let url_ = this.baseUrl + "/api/AdminTown/AdminTownGet?";
+    if (id === null)
+      throw new Error("The parameter 'id' cannot be null.");
+    else if (id !== undefined)
+      url_ += "id=" + encodeURIComponent("" + id) + "&";
     url_ = url_.replace(/[?&]$/, "");
 
     let options_: any = {
@@ -910,11 +920,11 @@ export class Client {
     };
 
     return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_: any) => {
-      return this.processGet4(response_);
+      return this.processAdminTownGet(response_);
     })).pipe(_observableCatch((response_: any) => {
       if (response_ instanceof HttpResponseBase) {
         try {
-          return this.processGet4(response_ as any);
+          return this.processAdminTownGet(response_ as any);
         } catch (e) {
           return _observableThrow(e) as any as Observable<TownDto>;
         }
@@ -923,7 +933,7 @@ export class Client {
     }));
   }
 
-  protected processGet4(response: HttpResponseBase): Observable<TownDto> {
+  protected processAdminTownGet(response: HttpResponseBase): Observable<TownDto> {
     const status = response.status;
     const responseBlob =
       response instanceof HttpResponse ? response.body :
@@ -949,8 +959,8 @@ export class Client {
    * @param body (optional) 
    * @return Success
    */
-  create4(body: TownDto | undefined): Observable<void> {
-    let url_ = this.baseUrl + "/api/AdminTown/Create";
+  adminTownCreate(body: TownDto | undefined): Observable<void> {
+    let url_ = this.baseUrl + "/api/AdminTown/AdminTownCreate";
     url_ = url_.replace(/[?&]$/, "");
 
     const content_ = JSON.stringify(body);
@@ -965,11 +975,11 @@ export class Client {
     };
 
     return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_: any) => {
-      return this.processCreate4(response_);
+      return this.processAdminTownCreate(response_);
     })).pipe(_observableCatch((response_: any) => {
       if (response_ instanceof HttpResponseBase) {
         try {
-          return this.processCreate4(response_ as any);
+          return this.processAdminTownCreate(response_ as any);
         } catch (e) {
           return _observableThrow(e) as any as Observable<void>;
         }
@@ -978,7 +988,7 @@ export class Client {
     }));
   }
 
-  protected processCreate4(response: HttpResponseBase): Observable<void> {
+  protected processAdminTownCreate(response: HttpResponseBase): Observable<void> {
     const status = response.status;
     const responseBlob =
       response instanceof HttpResponse ? response.body :
@@ -1001,8 +1011,8 @@ export class Client {
    * @param body (optional) 
    * @return Success
    */
-  edit4(body: TownDto | undefined): Observable<void> {
-    let url_ = this.baseUrl + "/api/AdminTown/Edit";
+  adminTownEdit(body: TownDto | undefined): Observable<void> {
+    let url_ = this.baseUrl + "/api/AdminTown/AdminTownEdit";
     url_ = url_.replace(/[?&]$/, "");
 
     const content_ = JSON.stringify(body);
@@ -1017,11 +1027,11 @@ export class Client {
     };
 
     return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_: any) => {
-      return this.processEdit4(response_);
+      return this.processAdminTownEdit(response_);
     })).pipe(_observableCatch((response_: any) => {
       if (response_ instanceof HttpResponseBase) {
         try {
-          return this.processEdit4(response_ as any);
+          return this.processAdminTownEdit(response_ as any);
         } catch (e) {
           return _observableThrow(e) as any as Observable<void>;
         }
@@ -1030,57 +1040,7 @@ export class Client {
     }));
   }
 
-  protected processEdit4(response: HttpResponseBase): Observable<void> {
-    const status = response.status;
-    const responseBlob =
-      response instanceof HttpResponse ? response.body :
-        (response as any).error instanceof Blob ? (response as any).error : undefined;
-
-    let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); } }
-    if (status === 200) {
-      return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
-        return _observableOf(null as any);
-      }));
-    } else if (status !== 200 && status !== 204) {
-      return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
-        return throwException("An unexpected server error occurred.", status, _responseText, _headers);
-      }));
-    }
-    return _observableOf(null as any);
-  }
-
-  /**
-   * @return Success
-   */
-  delete4(id: number): Observable<void> {
-    let url_ = this.baseUrl + "/api/AdminTown/Delete/{id}";
-    if (id === undefined || id === null)
-      throw new Error("The parameter 'id' must be defined.");
-    url_ = url_.replace("{id}", encodeURIComponent("" + id));
-    url_ = url_.replace(/[?&]$/, "");
-
-    let options_: any = {
-      observe: "response",
-      responseType: "blob",
-      headers: new HttpHeaders({
-      })
-    };
-
-    return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_: any) => {
-      return this.processDelete4(response_);
-    })).pipe(_observableCatch((response_: any) => {
-      if (response_ instanceof HttpResponseBase) {
-        try {
-          return this.processDelete4(response_ as any);
-        } catch (e) {
-          return _observableThrow(e) as any as Observable<void>;
-        }
-      } else
-        return _observableThrow(response_) as any as Observable<void>;
-    }));
-  }
-
-  protected processDelete4(response: HttpResponseBase): Observable<void> {
+  protected processAdminTownEdit(response: HttpResponseBase): Observable<void> {
     const status = response.status;
     const responseBlob =
       response instanceof HttpResponse ? response.body :
@@ -1103,12 +1063,74 @@ export class Client {
    * @param id (optional) 
    * @return Success
    */
-  getDoctorsBySpecializationId(id: number | undefined): Observable<DoctorDto[]> {
+  adminTownDelete(id: number | undefined): Observable<void> {
+    let url_ = this.baseUrl + "/api/AdminTown/AdminTownDelete?";
+    if (id === null)
+      throw new Error("The parameter 'id' cannot be null.");
+    else if (id !== undefined)
+      url_ += "id=" + encodeURIComponent("" + id) + "&";
+    url_ = url_.replace(/[?&]$/, "");
+
+    let options_: any = {
+      observe: "response",
+      responseType: "blob",
+      headers: new HttpHeaders({
+      })
+    };
+
+    return this.http.request("delete", url_, options_).pipe(_observableMergeMap((response_: any) => {
+      return this.processAdminTownDelete(response_);
+    })).pipe(_observableCatch((response_: any) => {
+      if (response_ instanceof HttpResponseBase) {
+        try {
+          return this.processAdminTownDelete(response_ as any);
+        } catch (e) {
+          return _observableThrow(e) as any as Observable<void>;
+        }
+      } else
+        return _observableThrow(response_) as any as Observable<void>;
+    }));
+  }
+
+  protected processAdminTownDelete(response: HttpResponseBase): Observable<void> {
+    const status = response.status;
+    const responseBlob =
+      response instanceof HttpResponse ? response.body :
+        (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+    let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); } }
+    if (status === 200) {
+      return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+        return _observableOf(null as any);
+      }));
+    } else if (status !== 200 && status !== 204) {
+      return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+        return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+      }));
+    }
+    return _observableOf(null as any);
+  }
+
+  /**
+   * @param id (optional) 
+   * @param page (optional) 
+   * @param take (optional) 
+   * @return Success
+   */
+  getDoctorsBySpecializationId(id: number | undefined, page: number | undefined, take: number | undefined): Observable<DoctorDto[]> {
     let url_ = this.baseUrl + "/api/Doctor/GetDoctorsBySpecializationId?";
     if (id === null)
       throw new Error("The parameter 'id' cannot be null.");
     else if (id !== undefined)
       url_ += "id=" + encodeURIComponent("" + id) + "&";
+    if (page === null)
+      throw new Error("The parameter 'page' cannot be null.");
+    else if (page !== undefined)
+      url_ += "page=" + encodeURIComponent("" + page) + "&";
+    if (take === null)
+      throw new Error("The parameter 'take' cannot be null.");
+    else if (take !== undefined)
+      url_ += "take=" + encodeURIComponent("" + take) + "&";
     url_ = url_.replace(/[?&]$/, "");
 
     let options_: any = {
@@ -1222,7 +1244,7 @@ export class Client {
    * @param town (optional) 
    * @return Success
    */
-  getList5(town: string | null | undefined): Observable<SpecailizationWithDoctorsDto[]> {
+  getList(town: string | null | undefined): Observable<SpecailizationWithDoctorsDto[]> {
     let url_ = this.baseUrl + "/api/Specialization/GetList?";
     if (town !== undefined && town !== null)
       url_ += "town=" + encodeURIComponent("" + town) + "&";
@@ -1237,11 +1259,11 @@ export class Client {
     };
 
     return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_: any) => {
-      return this.processGetList5(response_);
+      return this.processGetList(response_);
     })).pipe(_observableCatch((response_: any) => {
       if (response_ instanceof HttpResponseBase) {
         try {
-          return this.processGetList5(response_ as any);
+          return this.processGetList(response_ as any);
         } catch (e) {
           return _observableThrow(e) as any as Observable<SpecailizationWithDoctorsDto[]>;
         }
@@ -1250,7 +1272,7 @@ export class Client {
     }));
   }
 
-  protected processGetList5(response: HttpResponseBase): Observable<SpecailizationWithDoctorsDto[]> {
+  protected processGetList(response: HttpResponseBase): Observable<SpecailizationWithDoctorsDto[]> {
     const status = response.status;
     const responseBlob =
       response instanceof HttpResponse ? response.body :
@@ -1353,6 +1375,7 @@ export class PracticeEditDto implements IPracticeEditDto {
   end?: Date | undefined;
   doctorId?: number | undefined;
   specializationId?: number;
+  polyclinicId?: number;
 
   constructor(data?: IPracticeEditDto) {
     if (data) {
@@ -1370,6 +1393,7 @@ export class PracticeEditDto implements IPracticeEditDto {
       this.end = _data["end"] ? new Date(_data["end"].toString()) : <any>undefined;
       this.doctorId = _data["doctorId"];
       this.specializationId = _data["specializationId"];
+      this.polyclinicId = _data["polyclinicId"];
     }
   }
 
@@ -1387,6 +1411,7 @@ export class PracticeEditDto implements IPracticeEditDto {
     data["end"] = this.end ? this.end.toISOString() : <any>undefined;
     data["doctorId"] = this.doctorId;
     data["specializationId"] = this.specializationId;
+    data["polyclinicId"] = this.polyclinicId;
     return data;
   }
 
@@ -1404,65 +1429,7 @@ export interface IPracticeEditDto {
   end?: Date | undefined;
   doctorId?: number | undefined;
   specializationId?: number;
-}
-
-export class SpecializationDto implements ISpecializationDto {
-  id?: number | undefined;
-  name?: string | undefined;
-  doctors?: DoctorDto[] | undefined;
-
-  constructor(data?: ISpecializationDto) {
-    if (data) {
-      for (var property in data) {
-        if (data.hasOwnProperty(property))
-          (<any>this)[property] = (<any>data)[property];
-      }
-    }
-  }
-
-  init(_data?: any) {
-    if (_data) {
-      this.id = _data["id"];
-      this.name = _data["name"];
-      if (Array.isArray(_data["doctors"])) {
-        this.doctors = [] as any;
-        for (let item of _data["doctors"])
-          this.doctors!.push(DoctorDto.fromJS(item));
-      }
-    }
-  }
-
-  static fromJS(data: any): SpecializationDto {
-    data = typeof data === 'object' ? data : {};
-    let result = new SpecializationDto();
-    result.init(data);
-    return result;
-  }
-
-  toJSON(data?: any) {
-    data = typeof data === 'object' ? data : {};
-    data["id"] = this.id;
-    data["name"] = this.name;
-    if (Array.isArray(this.doctors)) {
-      data["doctors"] = [];
-      for (let item of this.doctors)
-        data["doctors"].push(item.toJSON());
-    }
-    return data;
-  }
-
-  clone(): SpecializationDto {
-    const json = this.toJSON();
-    let result = new SpecializationDto();
-    result.init(json);
-    return result;
-  }
-}
-
-export interface ISpecializationDto {
-  id?: number | undefined;
-  name?: string | undefined;
-  doctors?: DoctorDto[] | undefined;
+  polyclinicId?: number;
 }
 
 export class DoctorEditDto implements IDoctorEditDto {
@@ -1473,9 +1440,7 @@ export class DoctorEditDto implements IDoctorEditDto {
   phone?: number;
   longDesk?: string | undefined;
   shortDesk?: string | undefined;
-  polyclinicsId?: number[] | undefined;
   practicesDto?: PracticeEditDto[] | undefined;
-  specializationDto?: SpecializationDto[] | undefined;
 
   constructor(data?: IDoctorEditDto) {
     if (data) {
@@ -1495,20 +1460,10 @@ export class DoctorEditDto implements IDoctorEditDto {
       this.phone = _data["phone"];
       this.longDesk = _data["longDesk"];
       this.shortDesk = _data["shortDesk"];
-      if (Array.isArray(_data["polyclinicsId"])) {
-        this.polyclinicsId = [] as any;
-        for (let item of _data["polyclinicsId"])
-          this.polyclinicsId!.push(item);
-      }
       if (Array.isArray(_data["practicesDto"])) {
         this.practicesDto = [] as any;
         for (let item of _data["practicesDto"])
           this.practicesDto!.push(PracticeEditDto.fromJS(item));
-      }
-      if (Array.isArray(_data["specializationDto"])) {
-        this.specializationDto = [] as any;
-        for (let item of _data["specializationDto"])
-          this.specializationDto!.push(SpecializationDto.fromJS(item));
       }
     }
   }
@@ -1529,20 +1484,10 @@ export class DoctorEditDto implements IDoctorEditDto {
     data["phone"] = this.phone;
     data["longDesk"] = this.longDesk;
     data["shortDesk"] = this.shortDesk;
-    if (Array.isArray(this.polyclinicsId)) {
-      data["polyclinicsId"] = [];
-      for (let item of this.polyclinicsId)
-        data["polyclinicsId"].push(item);
-    }
     if (Array.isArray(this.practicesDto)) {
       data["practicesDto"] = [];
       for (let item of this.practicesDto)
         data["practicesDto"].push(item.toJSON());
-    }
-    if (Array.isArray(this.specializationDto)) {
-      data["specializationDto"] = [];
-      for (let item of this.specializationDto)
-        data["specializationDto"].push(item.toJSON());
     }
     return data;
   }
@@ -1563,9 +1508,7 @@ export interface IDoctorEditDto {
   phone?: number;
   longDesk?: string | undefined;
   shortDesk?: string | undefined;
-  polyclinicsId?: number[] | undefined;
   practicesDto?: PracticeEditDto[] | undefined;
-  specializationDto?: SpecializationDto[] | undefined;
 }
 
 export class PolyclinicDto implements IPolyclinicDto {
@@ -1625,6 +1568,65 @@ export interface IPolyclinicDto {
   address?: string | undefined;
   phone?: number;
   townId?: number;
+}
+
+export class SpecializationDto implements ISpecializationDto {
+  id?: number | undefined;
+  name?: string | undefined;
+  doctors?: DoctorDto[] | undefined;
+
+  constructor(data?: ISpecializationDto) {
+    if (data) {
+      for (var property in data) {
+        if (data.hasOwnProperty(property))
+          (<any>this)[property] = (<any>data)[property];
+      }
+    }
+  }
+
+  init(_data?: any) {
+    if (_data) {
+      this.id = _data["id"];
+      this.name = _data["name"];
+      if (Array.isArray(_data["doctors"])) {
+        this.doctors = [] as any;
+        for (let item of _data["doctors"])
+          this.doctors!.push(DoctorDto.fromJS(item));
+      }
+    }
+  }
+
+  static fromJS(data: any): SpecializationDto {
+    data = typeof data === 'object' ? data : {};
+    let result = new SpecializationDto();
+    result.init(data);
+    return result;
+  }
+
+  toJSON(data?: any) {
+    data = typeof data === 'object' ? data : {};
+    data["id"] = this.id;
+    data["name"] = this.name;
+    if (Array.isArray(this.doctors)) {
+      data["doctors"] = [];
+      for (let item of this.doctors)
+        data["doctors"].push(item.toJSON());
+    }
+    return data;
+  }
+
+  clone(): SpecializationDto {
+    const json = this.toJSON();
+    let result = new SpecializationDto();
+    result.init(json);
+    return result;
+  }
+}
+
+export interface ISpecializationDto {
+  id?: number | undefined;
+  name?: string | undefined;
+  doctors?: DoctorDto[] | undefined;
 }
 
 export class TownDto implements ITownDto {

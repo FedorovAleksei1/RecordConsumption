@@ -18,22 +18,22 @@ export class AdminTownComponent {
   }
 
   getTownList() {
-    this.client.getList4().subscribe(data => this.townList = data);
+    this.client.adminTownGetList().subscribe(data => this.townList = data);
   }
 
   createTown() {
-    this.client.create4(this.newTown).subscribe(() => {
+    this.client.adminTownCreate(this.newTown).subscribe(() => {
       this.newTown = new TownDto();
       this.getTownList();
     });
   }
 
   editTown(town: TownDto) {
-    this.client.edit4(town).subscribe(() => { this.getTownList() });
+    this.client.adminTownEdit(town).subscribe(() => { this.getTownList() });
   }
 
   removeTown(town: TownDto) {
     let test = town.id ?? 0;
-    this.client.delete4(test).subscribe(() => { this.getTownList() });
+    this.client.adminTownDelete(test).subscribe(() => { this.getTownList() });
   }
 }

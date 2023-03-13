@@ -9,6 +9,7 @@ namespace RecordConsumption.Dto.Practice
         public DateTime? End { get; set; }
         public int? DoctorId { get; set; }
         public int SpecializationId { get; set; }
+        public int PolyclinicId { get; set; }
 
     }
 }

@@ -11,7 +11,6 @@ import { Client,  DoctorEditDto, PolyclinicDto, PracticeEditDto, SpecializationD
 export class AdminDoctorComponent {
 
   doctor: DoctorEditDto = new DoctorEditDto();
-  polyclinicsId = new FormControl([0]);// для мультиселекта
 
   policlinicList: PolyclinicDto[] = [];
   newPractice: PracticeEditDto = new PracticeEditDto();
@@ -31,31 +30,27 @@ export class AdminDoctorComponent {
   }
 
   getDoctorById(id: number) {
-    this.client.get(id).subscribe(d => {
+    this.client.adminDoctorGet(id).subscribe(d => {
       this.doctor = d;
-      let test = d.polyclinicsId ? d.polyclinicsId : [];
-      this.polyclinicsId.setValue(test);
     });
   }
 
   getPoliclinicList() {
-    this.client.getList2().subscribe(data => this.policlinicList = data);
+    this.client.adminPolyclinicGetList().subscribe(data => this.policlinicList = data);
   }
 
   getSpecializationList() {
-    this.client.getList3().subscribe(data => this.specializationList = data);
+    this.client.adminSpecializationGetList().subscribe(data => this.specializationList = data);
   }
 
   save() {
-    this.doctor.polyclinicsId = this.polyclinicsId.value ? this.polyclinicsId.value : [];
-
     if (!this.doctor.id || this.doctor.id == 0) {             //Если Id пустой тогда мы вызываем метод создания доктора а если не пустой то мы редактируем
-      this.client.create(this.doctor).subscribe(r => {
-        this.router.navigate(['./admin/doctor/'+r]) }//редирект на страницу  http://localhost:4200/admin/doctor/{{r}} ./{{r}}
+      this.client.adminDoctorCreate(this.doctor).subscribe(r => {
+        this.router.navigate(['./admin/doctor/' + r]) }//редирект на страницу  http://localhost:4200/admin/doctor/{{r}} ./{{r}}
       );
     }
     else {
-      this.client.edit(this.doctor).subscribe(() => {
+      this.client.adminDoctorEdit(this.doctor).subscribe(() => {
         this.getDoctorById(this.activateRoute.snapshot.params["id"]);
       });
     }

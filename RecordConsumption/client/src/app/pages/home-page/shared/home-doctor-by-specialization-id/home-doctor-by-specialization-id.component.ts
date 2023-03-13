@@ -17,6 +17,6 @@ export class HomeDoctorBySpecializationIdComponent {
   }
 
   getdoctorList() {
-  this.client.getDoctorsBySpecializationId(this.activateRoute.snapshot.params["id"]).subscribe(data => this.doctorList = data);
+  this.client.getDoctorsBySpecializationId(this.activateRoute.snapshot.params["id"],0,0).subscribe(data => this.doctorList = data);
   }
 }

@@ -13,8 +13,6 @@ namespace RecordConsumption.Dto.Doctor
         public int Phone { get; set; }
         public string LongDesk { get; set; }
         public string ShortDesk { get; set; }
-        public ICollection<int> PolyclinicsId { get; set; }
         public List<PracticeEditDto> PracticesDto { get; set; }
-        public List<SpecializationDto> SpecializationDto { get; set; }
     }
 }

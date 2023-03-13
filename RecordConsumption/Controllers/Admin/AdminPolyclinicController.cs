@@ -11,8 +11,7 @@ namespace RecordConsumption.Controllers.Admin
 {
 
     [ApiController]
-
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     public class AdminPolyclinicController : ControllerBase
     {
         private readonly IPolyclinicService _polyclinicService;
@@ -21,38 +20,38 @@ namespace RecordConsumption.Controllers.Admin
             _polyclinicService = polyclinicService;
         }
 
-        [HttpGet("[action]")]
-        public List<PolyclinicDto> GetList()
+        [HttpGet]
+        public List<PolyclinicDto> AdminPolyclinicGetList()
         {
             var polyclinicDtoList = _polyclinicService.GetList();
             return polyclinicDtoList;
         }
 
 
-        [HttpGet("[action]/{id}")]
-        public PolyclinicDto Get(int id)
+        [HttpGet]
+        public PolyclinicDto AdminPolyclinicGet(int id)
         {
             var polyclinicDto = _polyclinicService.Get(id);
             return polyclinicDto;
         }
 
 
-        [HttpPost("[action]")]
-        public void Create([FromBody] PolyclinicDto polyclinic)
+        [HttpPost]
+        public void AdminPolyclinicCreate([FromBody] PolyclinicDto polyclinic)
         {
             _polyclinicService.Create(polyclinic);
             return;
         }
 
-        [HttpPost("[action]")]
-        public void Edit([FromBody] PolyclinicDto polyclinic)
+        [HttpPost]
+        public void AdminPolyclinicEdit([FromBody] PolyclinicDto polyclinic)
         {
             _polyclinicService.Edit(polyclinic);
             return;
         }
 
-        [HttpPost("[action]/{id}")]
-        public void Delete(int id)
+        [HttpDelete]
+        public void AdminPolyclinicDelete(int id)
         {
             _polyclinicService.Delete(id);
             return;

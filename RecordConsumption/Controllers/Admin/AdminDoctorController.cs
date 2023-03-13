@@ -20,7 +20,7 @@ namespace RecordConsumption.Controllers.Admin
         }
 
         [HttpGet]
-        public List<DoctorDto> GetList()
+        public List<DoctorDto> AdminDoctorGetList()
         {
             var doctorDtoList = _doctorService.GetList();
             return doctorDtoList;
@@ -28,28 +28,28 @@ namespace RecordConsumption.Controllers.Admin
 
 
         [HttpGet]
-        public DoctorEditDto Get(int id)
+        public DoctorEditDto AdminDoctorGet(int id)
         {
-            var doctorDto = _doctorService.Get(id);
+            var doctorDto = _doctorService.GetForEdit(id);
             return doctorDto;
         }
 
 
         [HttpPost]
-        public int Create([FromBody] DoctorEditDto doctor)
+        public int AdminDoctorCreate([FromBody] DoctorEditDto doctor)
         {
             return _doctorService.Create(doctor);
         }
 
         [HttpPost]
-        public void Edit([FromBody] DoctorEditDto doctor)
+        public void AdminDoctorEdit([FromBody] DoctorEditDto doctor)
         {
             _doctorService.Edit(doctor);
             return;
         }
 
-        [HttpPost]
-        public void Delete(int id)
+        [HttpDelete]
+        public void AdminDoctorDelete(int id)
         {
             _doctorService.Delete(id);
             return;

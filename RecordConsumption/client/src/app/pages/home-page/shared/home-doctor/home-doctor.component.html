@@ -26,11 +26,8 @@
           {{pract.start | date:'dd.MM.yyyy'}}
           {{pract.end | date:'dd.MM.yyyy'}}
           {{getSpecializationById(pract.specializationId||0)?.name}}
+          {{getPoliclinicById(pract.polyclinicId||0)?.name}}
         </div>
-        <div *ngFor="let policId of doctor.polyclinicsId">
-          {{getPoliclinicById(policId)?.name}}
-        </div>
-     
       </div>
     </a>
   </div>

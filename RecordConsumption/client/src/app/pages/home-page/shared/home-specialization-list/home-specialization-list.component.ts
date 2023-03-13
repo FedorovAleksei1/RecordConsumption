@@ -15,6 +15,6 @@ export class HomeSpecializationListComponent {
   }
 
   getSpecializationList() {
-    this.client.getList5(this.townName).subscribe(data => this.specializationList = data);
+    this.client.getList(this.townName).subscribe(data => this.specializationList = data);
   }
 }

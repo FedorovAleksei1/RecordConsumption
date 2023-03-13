@@ -18,15 +18,16 @@ namespace RecordConsumption.Controllers
         }
 
         [HttpGet]
-        public List<DoctorDto> GetDoctorsBySpecializationId(int id)
+        public List<DoctorDto> GetDoctorsBySpecializationId(int id, int page = 1, int take = 5)
         {
-            return _doctorService.GetDoctorsBySpecializationId(id);
+            return _doctorService.GetDoctorsBySpecializationId(id, page, take);
         }
 
         [HttpGet]
         public DoctorEditDto GetDoctorById(int id)
         {
-            return _doctorService.Get(id);
+            //return _doctorService.Get(id);
+            return new(); //создать метод GetDoctorById
         }
     }
 }
