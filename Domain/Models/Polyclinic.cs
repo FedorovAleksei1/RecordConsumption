@@ -13,6 +13,7 @@ namespace Domain.Models
         public string Address { get; set; }
         public int Phone { get; set; }
         //Photo
+        public string Adress { get; set; }
 
         public int TownId { get; set; }
         public Town Town { get; set; }

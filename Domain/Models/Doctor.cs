@@ -12,7 +12,7 @@ namespace Domain.Models
         public string FirstName { get; set; }
         public string MiddleName { get; set; }
         public string LastName { get; set; }
-        public int Phone { get; set; }
+        public string Phone { get; set; }
         public string LongDesk { get; set; }
         public string ShortDesk { get; set; }
         public int? PhotoId { get; set; }

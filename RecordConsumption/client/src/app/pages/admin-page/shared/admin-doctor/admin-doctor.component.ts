@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Client,  DoctorEditDto, PolyclinicDto, PracticeEditDto, SpecializationDto } from '../../../../services/Client';
+import { Client,  DoctorEditDto, PhotoDto, PolyclinicDto, PracticeEditDto, SpecializationDto } from '../../../../services/Client';
 
 @Component({
   selector: 'app-admin-doctor',
@@ -27,11 +27,20 @@ export class AdminDoctorComponent {
     if (id) {
       this.getDoctorById(id);
     }
+    else {
+      this.doctor.photo = new PhotoDto();
+      this.doctor.photo.base64 = '';
+    }
   }
 
   getDoctorById(id: number) {
     this.client.adminDoctorGet(id).subscribe(d => {
       this.doctor = d;
+      console.log();
+      if (!d.photo) {
+        this.doctor.photo = new PhotoDto();
+        this.doctor.photo.base64 = '';
+      }
     });
   }
 
@@ -44,6 +53,7 @@ export class AdminDoctorComponent {
   }
 
   save() {
+    console.log(this.doctor)
     if (!this.doctor.id || this.doctor.id == 0) {             //Если Id пустой тогда мы вызываем метод создания доктора а если не пустой то мы редактируем
       this.client.adminDoctorCreate(this.doctor).subscribe(r => {
         this.router.navigate(['./admin/doctor/' + r]) }//редирект на страницу  http://localhost:4200/admin/doctor/{{r}} ./{{r}}
@@ -66,5 +76,25 @@ export class AdminDoctorComponent {
 
   removePractice(practice: PracticeEditDto) {
     this.doctor.practicesDto = this.doctor.practicesDto?.filter(r => r != practice);
+  }
+
+  onFileChange(fileInput: any) {
+    let file = fileInput.target.files[0];
+
+
+    if (file != null) {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+        reader.onload = (e: any) => {
+          var base64 = e.target.result.replace('data:' + file.type + ';base64,', '');
+          var fileName = file.name;
+          if (this.doctor.photo) {
+            this.doctor.photo.base64 = base64;
+            this.doctor.photo.nameFile = fileName;
+          }
+        };
+    } else {
+      console.log('Файл не указан');
+    }
   }
 }

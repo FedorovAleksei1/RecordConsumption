@@ -4,14 +4,16 @@ using Domain;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Domain.Migrations
 {
     [DbContext(typeof(RecordConsumptionDbContext))]
-    partial class RecordConsumptionDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230313195048_Phone")]
+    partial class Phone
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -61,8 +63,8 @@ namespace Domain.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Base64")
-                        .HasColumnType("nvarchar(MAX)");
+                    b.Property<Guid>("FileGuid")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("NameFile")
                         .HasColumnType("nvarchar(max)");

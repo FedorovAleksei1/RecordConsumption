@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Domain.Models;
 using RecordConsumption.Dto.Doctor;
+using RecordConsumption.Dto.Photo;
 using RecordConsumption.Dto.Polyclinic;
 using RecordConsumption.Dto.Practice;
 using RecordConsumption.Dto.Specialization;
@@ -34,6 +35,10 @@ namespace RecordConsumption.Mapping
             CreateMap<Practice, PracticeEditDto>();
 
             CreateMap<Practice, PracticeDto>().ReverseMap();
+
+            CreateMap<Photo, PhotoDto>().ReverseMap();
+
+            CreateMap<PhotoDto, Photo>().ReverseMap();
         }
     }
 }

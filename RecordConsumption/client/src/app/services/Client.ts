@@ -1307,7 +1307,8 @@ export class DoctorDto implements IDoctorDto {
   firstName?: string | undefined;
   middleName?: string | undefined;
   lastName?: string | undefined;
-  phone?: number;
+  phone?: string | undefined;
+  adress?: string | undefined;
   longDesk?: string | undefined;
   shortDesk?: string | undefined;
 
@@ -1327,6 +1328,7 @@ export class DoctorDto implements IDoctorDto {
       this.middleName = _data["middleName"];
       this.lastName = _data["lastName"];
       this.phone = _data["phone"];
+      this.adress = _data["adress"];
       this.longDesk = _data["longDesk"];
       this.shortDesk = _data["shortDesk"];
     }
@@ -1346,6 +1348,7 @@ export class DoctorDto implements IDoctorDto {
     data["middleName"] = this.middleName;
     data["lastName"] = this.lastName;
     data["phone"] = this.phone;
+    data["adress"] = this.adress;
     data["longDesk"] = this.longDesk;
     data["shortDesk"] = this.shortDesk;
     return data;
@@ -1364,15 +1367,68 @@ export interface IDoctorDto {
   firstName?: string | undefined;
   middleName?: string | undefined;
   lastName?: string | undefined;
-  phone?: number;
+  phone?: string | undefined;
+  adress?: string | undefined;
   longDesk?: string | undefined;
   shortDesk?: string | undefined;
+}
+
+export class PhotoDto implements IPhotoDto {
+  id?: number;
+  nameFile?: string | undefined;
+  base64?: string | undefined;
+
+  constructor(data?: IPhotoDto) {
+    if (data) {
+      for (var property in data) {
+        if (data.hasOwnProperty(property))
+          (<any>this)[property] = (<any>data)[property];
+      }
+    }
+  }
+
+  init(_data?: any) {
+    if (_data) {
+      this.id = _data["id"];
+      this.nameFile = _data["nameFile"];
+      this.base64 = _data["base64"];
+    }
+  }
+
+  static fromJS(data: any): PhotoDto {
+    data = typeof data === 'object' ? data : {};
+    let result = new PhotoDto();
+    result.init(data);
+    return result;
+  }
+
+  toJSON(data?: any) {
+    data = typeof data === 'object' ? data : {};
+    data["id"] = this.id;
+    data["nameFile"] = this.nameFile;
+    data["base64"] = this.base64;
+    return data;
+  }
+
+  clone(): PhotoDto {
+    const json = this.toJSON();
+    let result = new PhotoDto();
+    result.init(json);
+    return result;
+  }
+}
+
+export interface IPhotoDto {
+  id?: number;
+  nameFile?: string | undefined;
+  base64?: string | undefined;
 }
 
 export class PracticeEditDto implements IPracticeEditDto {
   id?: number | undefined;
   start?: Date;
   end?: Date | undefined;
+  price?: number;
   doctorId?: number | undefined;
   specializationId?: number;
   polyclinicId?: number;
@@ -1391,6 +1447,7 @@ export class PracticeEditDto implements IPracticeEditDto {
       this.id = _data["id"];
       this.start = _data["start"] ? new Date(_data["start"].toString()) : <any>undefined;
       this.end = _data["end"] ? new Date(_data["end"].toString()) : <any>undefined;
+      this.price = _data["price"];
       this.doctorId = _data["doctorId"];
       this.specializationId = _data["specializationId"];
       this.polyclinicId = _data["polyclinicId"];
@@ -1409,6 +1466,7 @@ export class PracticeEditDto implements IPracticeEditDto {
     data["id"] = this.id;
     data["start"] = this.start ? this.start.toISOString() : <any>undefined;
     data["end"] = this.end ? this.end.toISOString() : <any>undefined;
+    data["price"] = this.price;
     data["doctorId"] = this.doctorId;
     data["specializationId"] = this.specializationId;
     data["polyclinicId"] = this.polyclinicId;
@@ -1427,6 +1485,7 @@ export interface IPracticeEditDto {
   id?: number | undefined;
   start?: Date;
   end?: Date | undefined;
+  price?: number;
   doctorId?: number | undefined;
   specializationId?: number;
   polyclinicId?: number;
@@ -1437,9 +1496,11 @@ export class DoctorEditDto implements IDoctorEditDto {
   firstName?: string | undefined;
   middleName?: string | undefined;
   lastName?: string | undefined;
-  phone?: number;
+  phone?: string | undefined;
+  adress?: string | undefined;
   longDesk?: string | undefined;
   shortDesk?: string | undefined;
+  photo?: PhotoDto;
   practicesDto?: PracticeEditDto[] | undefined;
 
   constructor(data?: IDoctorEditDto) {
@@ -1458,8 +1519,10 @@ export class DoctorEditDto implements IDoctorEditDto {
       this.middleName = _data["middleName"];
       this.lastName = _data["lastName"];
       this.phone = _data["phone"];
+      this.adress = _data["adress"];
       this.longDesk = _data["longDesk"];
       this.shortDesk = _data["shortDesk"];
+      this.photo = _data["photo"] ? PhotoDto.fromJS(_data["photo"]) : <any>undefined;
       if (Array.isArray(_data["practicesDto"])) {
         this.practicesDto = [] as any;
         for (let item of _data["practicesDto"])
@@ -1482,8 +1545,10 @@ export class DoctorEditDto implements IDoctorEditDto {
     data["middleName"] = this.middleName;
     data["lastName"] = this.lastName;
     data["phone"] = this.phone;
+    data["adress"] = this.adress;
     data["longDesk"] = this.longDesk;
     data["shortDesk"] = this.shortDesk;
+    data["photo"] = this.photo ? this.photo.toJSON() : <any>undefined;
     if (Array.isArray(this.practicesDto)) {
       data["practicesDto"] = [];
       for (let item of this.practicesDto)
@@ -1505,9 +1570,11 @@ export interface IDoctorEditDto {
   firstName?: string | undefined;
   middleName?: string | undefined;
   lastName?: string | undefined;
-  phone?: number;
+  phone?: string | undefined;
+  adress?: string | undefined;
   longDesk?: string | undefined;
   shortDesk?: string | undefined;
+  photo?: PhotoDto;
   practicesDto?: PracticeEditDto[] | undefined;
 }
 
@@ -1517,6 +1584,7 @@ export class PolyclinicDto implements IPolyclinicDto {
   address?: string | undefined;
   phone?: number;
   townId?: number;
+  photos?: PhotoDto[] | undefined;
 
   constructor(data?: IPolyclinicDto) {
     if (data) {
@@ -1534,6 +1602,11 @@ export class PolyclinicDto implements IPolyclinicDto {
       this.address = _data["address"];
       this.phone = _data["phone"];
       this.townId = _data["townId"];
+      if (Array.isArray(_data["photos"])) {
+        this.photos = [] as any;
+        for (let item of _data["photos"])
+          this.photos!.push(PhotoDto.fromJS(item));
+      }
     }
   }
 
@@ -1551,6 +1624,11 @@ export class PolyclinicDto implements IPolyclinicDto {
     data["address"] = this.address;
     data["phone"] = this.phone;
     data["townId"] = this.townId;
+    if (Array.isArray(this.photos)) {
+      data["photos"] = [];
+      for (let item of this.photos)
+        data["photos"].push(item.toJSON());
+    }
     return data;
   }
 
@@ -1568,6 +1646,7 @@ export interface IPolyclinicDto {
   address?: string | undefined;
   phone?: number;
   townId?: number;
+  photos?: PhotoDto[] | undefined;
 }
 
 export class SpecializationDto implements ISpecializationDto {
