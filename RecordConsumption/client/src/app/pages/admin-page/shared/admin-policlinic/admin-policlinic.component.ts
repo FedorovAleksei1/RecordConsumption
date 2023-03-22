@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { SubscriptionLog } from 'rxjs/internal/testing/SubscriptionLog';
-import { Client, PolyclinicDto, TownDto } from '../../../../services/Client';
+import { Client, PhotoDto, PolyclinicDto, TownDto } from '../../../../services/Client';
 
 @Component({
   selector: 'app-admin-policlinic',
@@ -45,4 +45,32 @@ export class AdminPoliclinicComponent {
   }
 
 
+
+  removePhote(policlinic: PolyclinicDto, photo: PhotoDto) {
+    policlinic.photos = policlinic.photos?.filter(p => p.base64 != photo.base64);
+  }
+
+  onFileChange(fileInput: any, policlinic: PolyclinicDto) {
+    let file = fileInput.target.files[0];
+
+    if (!policlinic.photos || policlinic.photos.length < 1) {
+      policlinic.photos = new Array<PhotoDto>();
+
+    }
+
+    if (file != null) {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = (e: any) => {
+        var base64 = e.target.result.replace('data:' + file.type + ';base64,', '');
+        var fileName = file.name;
+        var newPhoto = new PhotoDto();
+        newPhoto.base64 = base64;
+        newPhoto.nameFile = fileName;
+        policlinic.photos?.push(newPhoto);
+      };
+    } else {
+      console.log('Файл не указан');
+    }
+  }
 }

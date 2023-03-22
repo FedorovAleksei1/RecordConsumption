@@ -39,6 +39,18 @@
       </mat-option>
     </mat-select>
   </mat-form-field>
+
+  <ng-container *ngFor="let photo of policlinic.photos">
+    <div *ngIf="photo.base64">
+      <img src="data:image/png;base64, {{photo.base64}}" />
+    </div>
+    <button (click)="removePhote(policlinic, photo)">uiytdyu6jtrdxc</button>
+  </ng-container>
+
+  <input type="file" name="file" (change)="onFileChange($event, policlinic)">
+  <!--accept="application/pdf"-->
+  <br>
+
   <br>
   <button mat-raised-button (click)="editPoliclinic(policlinic)">Редактировать</button>
   <button mat-raised-button (click)="removePoliclinic(policlinic)">Удалить</button>

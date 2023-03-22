@@ -5,6 +5,7 @@ using RecordConsumption.Dto.Specialization;
 using System.Collections.Generic;
 using System;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 using RecordConsumption.Dto.Polyclinic;
 
 namespace RecordConsumption.Services.PolyclinicService
@@ -22,7 +23,7 @@ namespace RecordConsumption.Services.PolyclinicService
 
         public List<PolyclinicDto> GetList()
         {
-            var polyclinics = _context.Polyclinics.ToList();
+            var polyclinics = _context.Polyclinics.Include(p => p.Photos).ToList();
             var polyclinicsDto = _mapper.Map<List<PolyclinicDto>>(polyclinics);
             return polyclinicsDto;
         }
@@ -65,8 +66,14 @@ namespace RecordConsumption.Services.PolyclinicService
             if (string.IsNullOrEmpty(polyclinicDto.Name))
                 throw new Exception("Наименование не может быть пустым");
 
+
+            var photos = _context.Polyclinics.AsNoTracking().Where(p => p.Id == polyclinicDto.Id).Select(p => p.Photos)
+                .FirstOrDefault();
+
             var polyclinic = _mapper.Map<Polyclinic>(polyclinicDto);
             _context.Polyclinics.Update(polyclinic);
+            var removePhotos = photos.Where(p => !polyclinic.Photos.Any(r => r.Id == p.Id)).ToList();
+            _context.Photos.RemoveRange(removePhotos);
             _context.SaveChanges();
         }
 

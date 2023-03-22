@@ -25,9 +25,9 @@
            required>
   </mat-form-field>
   <div *ngIf="doctor?.photo?.base64">
-    <img [src]="data:image/png;base64, {{doctor.photo.base64}}" />
+    <img src="data:image/png;base64, {{doctor?.photo?.base64}}" />
   </div>
-  
+
   <input type="file" name="file" (change)="onFileChange($event)">
   <!--accept="application/pdf"-->
   <br>

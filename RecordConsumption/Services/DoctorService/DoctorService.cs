@@ -8,6 +8,8 @@ using System.Linq;
 using RecordConsumption.Dto.Doctor;
 using RecordConsumption.Services.PracticeService;
 using Microsoft.EntityFrameworkCore;
+using RecordConsumption.Dto.Photo;
+using RecordConsumption.Dto.Practice;
 using RecordConsumption.Services.SpecialitizationService;
 
 namespace RecordConsumption.Services.DoctorService
@@ -42,16 +44,14 @@ namespace RecordConsumption.Services.DoctorService
                 throw new Exception("Id должен быть больше 0");
 
             var doctor = _context.Doctors
-                .Include(d => d.Practices)
                 .FirstOrDefault(t => t.Id == id);
 
             if (doctor == null)
                 throw new Exception("Объект не найден");
 
-            var specializationIds = doctor.Practices.Select(x => x.SpecializationId).ToList();
-            var specializationsDto = _specializationService.GetSpecializationsByIds(specializationIds);
-
             doctorDto = _mapper.Map<DoctorEditDto>(doctor);
+            doctorDto.PracticesDto = _mapper.Map<List<PracticeEditDto>>(_context.Practices.Where(p => p.DoctorId == doctor.Id).ToList());
+            doctorDto.Photo = _mapper.Map<PhotoDto>(_context.Photos.Where(p => p.Id == doctor.PhotoId).FirstOrDefault());
 
             return doctorDto;
         }
@@ -61,13 +61,13 @@ namespace RecordConsumption.Services.DoctorService
             if (doctorDto == null)
                 throw new Exception("Объект не может быть пустым");
 
-            if (string.IsNullOrEmpty(doctorDto.FirstName ))
+            if (string.IsNullOrEmpty(doctorDto.FirstName))
                 throw new Exception("Наименование не может быть пустым");
 
-            if (string.IsNullOrEmpty( doctorDto.MiddleName ))
+            if (string.IsNullOrEmpty(doctorDto.MiddleName))
                 throw new Exception("Наименование не может быть пустым");
 
-            if (string.IsNullOrEmpty( doctorDto.LastName))
+            if (string.IsNullOrEmpty(doctorDto.LastName))
                 throw new Exception("Наименование не может быть пустым");
 
             if (doctorDto.PracticesDto == null || doctorDto.PracticesDto.Count == 0)
@@ -101,7 +101,7 @@ namespace RecordConsumption.Services.DoctorService
 
             if (doctorDto.PracticesDto == null || doctorDto.PracticesDto.Count == 0)
                 throw new Exception("Верни практику ");
-            
+
 
             var doctor = _mapper.Map<Doctor>(doctorDto);
 
@@ -136,7 +136,7 @@ namespace RecordConsumption.Services.DoctorService
                 .Skip((page - 1) * take)
                 .Take(take)
                 .ToList();
-            var actualDoctors = doctors.SelectMany(x => x.Practices).Where(x => x.SpecializationId == id && x.End == null).Select(x => x.Doctor).ToList();  
+            var actualDoctors = doctors.SelectMany(x => x.Practices).Where(x => x.SpecializationId == id && x.End == null).Select(x => x.Doctor).ToList();
             return _mapper.Map<List<DoctorDto>>(actualDoctors);
         }
     }
