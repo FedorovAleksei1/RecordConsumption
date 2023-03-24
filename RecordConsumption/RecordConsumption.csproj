@@ -5,9 +5,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="client\src\app\services\adminTown\**" />
     <Compile Remove="Dto\Doctor\DoctorDto.cs\**" />
+    <Content Remove="client\src\app\services\adminTown\**" />
     <Content Remove="Dto\Doctor\DoctorDto.cs\**" />
+    <EmbeddedResource Remove="client\src\app\services\adminTown\**" />
     <EmbeddedResource Remove="Dto\Doctor\DoctorDto.cs\**" />
+    <None Remove="client\src\app\services\adminTown\**" />
     <None Remove="Dto\Doctor\DoctorDto.cs\**" />
   </ItemGroup>
 
@@ -38,7 +42,6 @@
   <ItemGroup>
     <Folder Include="client\src\app\dialogs\" />
     <Folder Include="client\src\app\pages\home-page\shared\" />
-    <Folder Include="client\src\app\services\adminTown\" />
   </ItemGroup>
 
   <ItemGroup>

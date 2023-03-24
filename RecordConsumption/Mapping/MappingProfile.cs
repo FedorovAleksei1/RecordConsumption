@@ -16,7 +16,10 @@ namespace RecordConsumption.Mapping
         {
             CreateMap<Town, TownDto>().ReverseMap();
 
-            CreateMap<Doctor, DoctorDto>().ReverseMap();
+            CreateMap<DoctorDto, Doctor>();
+            CreateMap<Doctor, DoctorDto>()
+                 .ForMember(t => t.PhotoBase64, rep => rep.MapFrom(ped => ped.PhotoId != null ? ped.Photo.Base64 : ""));
+            CreateMap<Doctor, DoctorViewDto>();
 
             CreateMap<Doctor, DoctorEditDto>();
 

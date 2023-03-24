@@ -13,7 +13,7 @@ import { Observable, throwError as _observableThrow, of as _observableOf } from 
 import { Injectable, Inject, Optional, InjectionToken } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpResponse, HttpResponseBase } from '@angular/common/http';
 
-export const API_BASE_URL = new InjectionToken('API_BASE_URL');
+export const API_BASE_URL = new InjectionToken<string>('API_BASE_URL');
 
 @Injectable()
 export class Client {
@@ -1117,7 +1117,7 @@ export class Client {
    * @param take (optional) 
    * @return Success
    */
-  getDoctorsBySpecializationId(id: number | undefined, page: number | undefined, take: number | undefined): Observable<DoctorDto[]> {
+  getDoctorsBySpecializationId(id: number | undefined, page: number | undefined, take: number | undefined): Observable<DoctorDtoPaginationDto> {
     let url_ = this.baseUrl + "/api/Doctor/GetDoctorsBySpecializationId?";
     if (id === null)
       throw new Error("The parameter 'id' cannot be null.");
@@ -1148,14 +1148,14 @@ export class Client {
         try {
           return this.processGetDoctorsBySpecializationId(response_ as any);
         } catch (e) {
-          return _observableThrow(e) as any as Observable<DoctorDto[]>;
+          return _observableThrow(e) as any as Observable<DoctorDtoPaginationDto>;
         }
       } else
-        return _observableThrow(response_) as any as Observable<DoctorDto[]>;
+        return _observableThrow(response_) as any as Observable<DoctorDtoPaginationDto>;
     }));
   }
 
-  protected processGetDoctorsBySpecializationId(response: HttpResponseBase): Observable<DoctorDto[]> {
+  protected processGetDoctorsBySpecializationId(response: HttpResponseBase): Observable<DoctorDtoPaginationDto> {
     const status = response.status;
     const responseBlob =
       response instanceof HttpResponse ? response.body :
@@ -1166,14 +1166,7 @@ export class Client {
       return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
         let result200: any = null;
         let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-        if (Array.isArray(resultData200)) {
-          result200 = [] as any;
-          for (let item of resultData200)
-            result200!.push(DoctorDto.fromJS(item));
-        }
-        else {
-          result200 = <any>null;
-        }
+        result200 = DoctorDtoPaginationDto.fromJS(resultData200);
         return _observableOf(result200);
       }));
     } else if (status !== 200 && status !== 204) {
@@ -1188,7 +1181,7 @@ export class Client {
    * @param id (optional) 
    * @return Success
    */
-  getDoctorById(id: number | undefined): Observable<DoctorEditDto> {
+  getDoctorById(id: number | undefined): Observable<DoctorViewDto> {
     let url_ = this.baseUrl + "/api/Doctor/GetDoctorById?";
     if (id === null)
       throw new Error("The parameter 'id' cannot be null.");
@@ -1211,14 +1204,14 @@ export class Client {
         try {
           return this.processGetDoctorById(response_ as any);
         } catch (e) {
-          return _observableThrow(e) as any as Observable<DoctorEditDto>;
+          return _observableThrow(e) as any as Observable<DoctorViewDto>;
         }
       } else
-        return _observableThrow(response_) as any as Observable<DoctorEditDto>;
+        return _observableThrow(response_) as any as Observable<DoctorViewDto>;
     }));
   }
 
-  protected processGetDoctorById(response: HttpResponseBase): Observable<DoctorEditDto> {
+  protected processGetDoctorById(response: HttpResponseBase): Observable<DoctorViewDto> {
     const status = response.status;
     const responseBlob =
       response instanceof HttpResponse ? response.body :
@@ -1229,7 +1222,7 @@ export class Client {
       return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
         let result200: any = null;
         let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-        result200 = DoctorEditDto.fromJS(resultData200);
+        result200 = DoctorViewDto.fromJS(resultData200);
         return _observableOf(result200);
       }));
     } else if (status !== 200 && status !== 204) {
@@ -1311,6 +1304,7 @@ export class DoctorDto implements IDoctorDto {
   adress?: string | undefined;
   longDesk?: string | undefined;
   shortDesk?: string | undefined;
+  photoBase64?: string | undefined;
 
   constructor(data?: IDoctorDto) {
     if (data) {
@@ -1331,6 +1325,7 @@ export class DoctorDto implements IDoctorDto {
       this.adress = _data["adress"];
       this.longDesk = _data["longDesk"];
       this.shortDesk = _data["shortDesk"];
+      this.photoBase64 = _data["photoBase64"];
     }
   }
 
@@ -1351,6 +1346,7 @@ export class DoctorDto implements IDoctorDto {
     data["adress"] = this.adress;
     data["longDesk"] = this.longDesk;
     data["shortDesk"] = this.shortDesk;
+    data["photoBase64"] = this.photoBase64;
     return data;
   }
 
@@ -1371,6 +1367,7 @@ export interface IDoctorDto {
   adress?: string | undefined;
   longDesk?: string | undefined;
   shortDesk?: string | undefined;
+  photoBase64?: string | undefined;
 }
 
 export class PhotoDto implements IPhotoDto {
@@ -1753,6 +1750,148 @@ export class TownDto implements ITownDto {
 export interface ITownDto {
   id?: number | undefined;
   name?: string | undefined;
+}
+
+export class DoctorDtoPaginationDto implements IDoctorDtoPaginationDto {
+  elements?: DoctorDto[] | undefined;
+  totalCount?: number;
+
+  constructor(data?: IDoctorDtoPaginationDto) {
+    if (data) {
+      for (var property in data) {
+        if (data.hasOwnProperty(property))
+          (<any>this)[property] = (<any>data)[property];
+      }
+    }
+  }
+
+  init(_data?: any) {
+    if (_data) {
+      if (Array.isArray(_data["elements"])) {
+        this.elements = [] as any;
+        for (let item of _data["elements"])
+          this.elements!.push(DoctorDto.fromJS(item));
+      }
+      this.totalCount = _data["totalCount"];
+    }
+  }
+
+  static fromJS(data: any): DoctorDtoPaginationDto {
+    data = typeof data === 'object' ? data : {};
+    let result = new DoctorDtoPaginationDto();
+    result.init(data);
+    return result;
+  }
+
+  toJSON(data?: any) {
+    data = typeof data === 'object' ? data : {};
+    if (Array.isArray(this.elements)) {
+      data["elements"] = [];
+      for (let item of this.elements)
+        data["elements"].push(item.toJSON());
+    }
+    data["totalCount"] = this.totalCount;
+    return data;
+  }
+
+  clone(): DoctorDtoPaginationDto {
+    const json = this.toJSON();
+    let result = new DoctorDtoPaginationDto();
+    result.init(json);
+    return result;
+  }
+}
+
+export interface IDoctorDtoPaginationDto {
+  elements?: DoctorDto[] | undefined;
+  totalCount?: number;
+}
+
+export class DoctorViewDto implements IDoctorViewDto {
+  id?: number;
+  firstName?: string | undefined;
+  middleName?: string | undefined;
+  lastName?: string | undefined;
+  phone?: string | undefined;
+  adress?: string | undefined;
+  longDesk?: string | undefined;
+  shortDesk?: string | undefined;
+  photo?: PhotoDto;
+  practicesDto?: PracticeEditDto[] | undefined;
+
+  constructor(data?: IDoctorViewDto) {
+    if (data) {
+      for (var property in data) {
+        if (data.hasOwnProperty(property))
+          (<any>this)[property] = (<any>data)[property];
+      }
+    }
+  }
+
+  init(_data?: any) {
+    if (_data) {
+      this.id = _data["id"];
+      this.firstName = _data["firstName"];
+      this.middleName = _data["middleName"];
+      this.lastName = _data["lastName"];
+      this.phone = _data["phone"];
+      this.adress = _data["adress"];
+      this.longDesk = _data["longDesk"];
+      this.shortDesk = _data["shortDesk"];
+      this.photo = _data["photo"] ? PhotoDto.fromJS(_data["photo"]) : <any>undefined;
+      if (Array.isArray(_data["practicesDto"])) {
+        this.practicesDto = [] as any;
+        for (let item of _data["practicesDto"])
+          this.practicesDto!.push(PracticeEditDto.fromJS(item));
+      }
+    }
+  }
+
+  static fromJS(data: any): DoctorViewDto {
+    data = typeof data === 'object' ? data : {};
+    let result = new DoctorViewDto();
+    result.init(data);
+    return result;
+  }
+
+  toJSON(data?: any) {
+    data = typeof data === 'object' ? data : {};
+    data["id"] = this.id;
+    data["firstName"] = this.firstName;
+    data["middleName"] = this.middleName;
+    data["lastName"] = this.lastName;
+    data["phone"] = this.phone;
+    data["adress"] = this.adress;
+    data["longDesk"] = this.longDesk;
+    data["shortDesk"] = this.shortDesk;
+    data["photo"] = this.photo ? this.photo.toJSON() : <any>undefined;
+    if (Array.isArray(this.practicesDto)) {
+      data["practicesDto"] = [];
+      for (let item of this.practicesDto)
+        data["practicesDto"].push(item.toJSON());
+    }
+    return data;
+  }
+
+  clone(): DoctorViewDto {
+    const json = this.toJSON();
+    let result = new DoctorViewDto();
+    result.init(json);
+    return result;
+  }
+}
+
+export interface IDoctorViewDto {
+  id?: number;
+  firstName?: string | undefined;
+  middleName?: string | undefined;
+  lastName?: string | undefined;
+  phone?: string | undefined;
+  adress?: string | undefined;
+  longDesk?: string | undefined;
+  shortDesk?: string | undefined;
+  photo?: PhotoDto;
+  practicesDto?: PracticeEditDto[] | undefined;
 }
 
 export class SpecailizationWithDoctorsDto implements ISpecailizationWithDoctorsDto {

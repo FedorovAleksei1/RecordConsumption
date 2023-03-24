@@ -11,6 +11,9 @@ using Microsoft.EntityFrameworkCore;
 using RecordConsumption.Dto.Photo;
 using RecordConsumption.Dto.Practice;
 using RecordConsumption.Services.SpecialitizationService;
+using System.Numerics;
+using RecordConsumption.Dto;
+using Microsoft.AspNetCore.Mvc.Razor.TagHelpers;
 
 namespace RecordConsumption.Services.DoctorService
 {
@@ -31,11 +34,30 @@ namespace RecordConsumption.Services.DoctorService
 
         public List<DoctorDto> GetList()
         {
-            var doctors = _context.Doctors.ToList();
+            var doctors = _context.Doctors.Include(d => d.Photo).ToList();
             var doctorsDto = _mapper.Map<List<DoctorDto>>(doctors);
             return doctorsDto;
 
         }
+
+        public DoctorViewDto GetDoctorById(int id)
+        {
+            var doctorDto = new DoctorViewDto();
+            if (id == 0)
+                throw new Exception("Id должен быть больше 0");
+
+            var doctor = _context.Doctors
+                .FirstOrDefault(t => t.Id == id);
+
+            if (doctor == null)
+                throw new Exception("Объект не найден");
+
+            doctorDto = _mapper.Map<DoctorViewDto>(doctor);
+            doctorDto.PracticesDto = _mapper.Map<List<PracticeEditDto>>(_context.Practices.Where(p => p.DoctorId == doctor.Id).ToList());
+            doctorDto.Photo = _mapper.Map<PhotoDto>(_context.Photos.Where(p => p.Id == doctor.PhotoId).FirstOrDefault());
+
+            return doctorDto;
+        } 
 
         public DoctorEditDto GetForEdit(int id)
         {
@@ -128,16 +150,21 @@ namespace RecordConsumption.Services.DoctorService
             _context.SaveChanges();
         }
 
-        public List<DoctorDto> GetDoctorsBySpecializationId(int id, int page = 1, int take = 5)
+        public PaginationDto<DoctorDto> GetDoctorsBySpecializationId(int id, int page, int take)
         {
             var doctors = _context.Doctors
-                .Include(x => x.Practices)
+                .Where(d => d.Practices.Any(p => p.SpecializationId == id && p.End == null))
+                .Include(d => d.Photo)
                 .OrderBy(d => d.Id)
                 .Skip((page - 1) * take)
                 .Take(take)
                 .ToList();
-            var actualDoctors = doctors.SelectMany(x => x.Practices).Where(x => x.SpecializationId == id && x.End == null).Select(x => x.Doctor).ToList();
-            return _mapper.Map<List<DoctorDto>>(actualDoctors);
+            var paginationDto = new PaginationDto<DoctorDto>();
+            paginationDto.Elements = _mapper.Map<List<DoctorDto>>(doctors);
+            paginationDto.TotalCount = _context.Doctors
+                .Where(d => d.Practices.Any(p => p.SpecializationId == id && p.End == null))
+                .Count(); 
+            return paginationDto;
         }
     }
 }

@@ -1,6 +1,10 @@
-﻿namespace RecordConsumption.Dto.Doctor
+﻿using RecordConsumption.Dto.Photo;
+using RecordConsumption.Dto.Practice;
+using System.Collections.Generic;
+
+namespace RecordConsumption.Dto.Doctor
 {
-    public class DoctorDto
+    public class DoctorViewDto
     {
         public int Id { get; set; }
         public string FirstName { get; set; }
@@ -10,6 +14,7 @@
         public string Adress { get; set; }
         public string LongDesk { get; set; }
         public string ShortDesk { get; set; }
-        public string PhotoBase64 { get; set; }
+        public PhotoDto Photo { get; set; }
+        public List<PracticeEditDto> PracticesDto { get; set; }
     }
 }

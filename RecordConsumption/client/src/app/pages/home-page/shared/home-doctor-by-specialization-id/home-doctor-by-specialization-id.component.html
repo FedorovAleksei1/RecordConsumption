@@ -15,9 +15,22 @@
         <div>
           {{doc.shortDesk}}
         </div>
+
       </div>
     </a>
   </div>
+  <mat-form-field appearance="fill">
+    <mat-label>Кол элементов на странице</mat-label>
+    <mat-select value="5" (selectionChange)="changeTheNumberOfLines($event)">
+      <mat-option value="1">1</mat-option>
+      <mat-option value="5">5</mat-option>
+      <mat-option value="10">10</mat-option>
+      <mat-option value="25">25</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <button (click)="pageBack()" [disabled]="page == 1">Назад</button>
+  <div>{{page}}/{{pageAll}}</div>
+  <button (click)="pageForward()" [disabled]="page >= pageAll">Вперёд</button>
 </div>
 <br>
 <div></div>

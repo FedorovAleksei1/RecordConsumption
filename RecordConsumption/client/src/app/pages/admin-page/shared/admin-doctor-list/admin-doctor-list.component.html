@@ -1,20 +1,17 @@
 <!--<a *ngFor="let doctor of doctorList" routerLink="./doctor/{{doctor.id}}">{{doctor.firstName}} {{doctor.middleName}} {{doctor.lastName}}</a>-->
 
 <br>
-<div>
-  <mat-card class="example-card" *ngFor="let doctor of doctorList">
+<div class="text col-12">
+  <mat-card class="example-card  <!--d-flex flex-wrap justify-content-between-->" *ngFor="let doctor of doctorList" [routerLink]="['./doctor/',doctor.id]">
     <br>
     <mat-card-header>
-      <mat-card-title>Shiba Inu</mat-card-title>
-      <mat-card-subtitle>Dog Breed</mat-card-subtitle>
+      <img *ngIf="doctor.photoBase64" src="data:image/png;base64, {{doctor.photoBase64}}" />
     </mat-card-header>
-    <mat-card-content>
-      {{doctor.firstName}} {{doctor.middleName}} {{doctor.lastName}}
-    </mat-card-content>
-    <mat-card-actions>
-      <button class=" buttonadmin" mat-raised-button  [routerLink]="['./doctor/',doctor.id]">LIKE</button>
-      <button class=" buttonadmin" mat-raised-button>SHARE</button>
-    </mat-card-actions>
+    <div class="test">
+      <mat-card-content>
+        {{doctor.firstName}} {{doctor.middleName}} {{doctor.lastName}}
+      </mat-card-content>
+    </div>
   </mat-card>
 </div>
 <br>

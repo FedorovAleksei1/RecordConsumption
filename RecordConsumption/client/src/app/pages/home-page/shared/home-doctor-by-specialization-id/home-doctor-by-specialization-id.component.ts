@@ -9,6 +9,11 @@ import { Client, DoctorDto } from '../../../../services/Client';
 })
 export class HomeDoctorBySpecializationIdComponent {
   doctorList: DoctorDto[] = [];
+  page: number = 1;
+  take: number = 5;
+  totalCount: number = 1;
+  pageAll: number = 1;
+
 
   constructor(private client: Client, private activateRoute: ActivatedRoute) {
      
@@ -17,6 +22,27 @@ export class HomeDoctorBySpecializationIdComponent {
   }
 
   getdoctorList() {
-  this.client.getDoctorsBySpecializationId(this.activateRoute.snapshot.params["id"],0,0).subscribe(data => this.doctorList = data);
+    this.client.getDoctorsBySpecializationId(this.activateRoute.snapshot.params["id"], this.page, this.take).subscribe(data => {
+      this.doctorList = data.elements || [];
+      this.totalCount = data.totalCount || 0;
+      this.pageAll = Math.ceil(this.totalCount / this.take);
+    });
   }
+
+  pageForward(): void {
+    this.page = this.page + 1;
+    this.getdoctorList();
+  }
+
+  pageBack(): void {
+    this.page = this.page - 1;
+    this.getdoctorList();
+  }
+
+  changeTheNumberOfLines(event: any): void {
+    this.page = 1;
+    this.take = event.value;
+    this.getdoctorList();
+  }
+
 }

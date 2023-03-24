@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Client, DoctorEditDto, PolyclinicDto, SpecializationDto } from '../../../../services/Client';
+import { Client,  DoctorViewDto, PolyclinicDto, SpecializationDto } from '../../../../services/Client';
 
 @Component({
   selector: 'app-home-doctor',
@@ -8,7 +8,7 @@ import { Client, DoctorEditDto, PolyclinicDto, SpecializationDto } from '../../.
   styleUrls: ['./home-doctor.component.scss']
 })
 export class HomeDoctorComponent {
-  doctor: DoctorEditDto = new DoctorEditDto();
+  doctor: DoctorViewDto = new DoctorViewDto();
   policlinicList: PolyclinicDto[] = [];
   specializationList: SpecializationDto[] = [];
 
@@ -18,13 +18,13 @@ export class HomeDoctorComponent {
     this.getPoliclinicList();
     this.getSpecializationList() 
   }
+
   getDoctor() {
     this.client.getDoctorById(this.activateRoute.snapshot.params["id"]).subscribe(data => {
       this.doctor = data;
-      
-     
     });
   }
+
   getPoliclinicList() {
     this.client.adminPolyclinicGetList().subscribe(data => this.policlinicList = data);
   }

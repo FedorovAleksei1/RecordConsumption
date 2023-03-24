@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Client, DoctorEditDto } from '../../../../services/Client';
+import { Client, DoctorDto } from '../../../../services/Client';
 
 @Component({
   selector: 'app-admin-doctor-list',
@@ -7,13 +7,17 @@ import { Client, DoctorEditDto } from '../../../../services/Client';
   styleUrls: ['./admin-doctor-list.component.scss']
 })
 export class AdminDoctorListComponent {
-  doctorList: DoctorEditDto[] = [];
+  doctorList: DoctorDto[] = [];
 
   constructor(private client: Client) {
     this.getDoctorList();
   }
 
   getDoctorList() {
-    this.client.adminDoctorGetList().subscribe(data => this.doctorList = data);
+    this.client.adminDoctorGetList().subscribe(data => {
+      this.doctorList = data;
+      console.log(data)
+      console.log(this.doctorList)
+    });
   }
 }
