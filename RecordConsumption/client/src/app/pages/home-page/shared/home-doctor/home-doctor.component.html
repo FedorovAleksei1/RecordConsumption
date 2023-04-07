@@ -9,31 +9,53 @@
 </div>-->
 
 <div class="row">
-  <div class="col-4" >
-    <a class="testA " >
-      <div>
+  <div class=" col-4" >
+    <a  >
+      <div class="card_item">
+        <div>
+          <div class="card_photo">
+            <div *ngIf="doctor?.photo?.base64">
+              <img class="img_doc" src="data:image/png;base64, {{doctor?.photo?.base64}}" />
+            </div>
 
-        {{doctor.lastName}}
+          </div>
 
-        <div>
-          {{doctor.firstName}}
+          <div class="card_fio">
+            {{doctor.lastName}}
+
+
+            {{doctor.firstName}}
+
+            {{doctor.middleName}}
+            <div>
+              {{doctor.shortDesk}}
+            </div>
+          </div>
+          <div class="longdesk">
+            {{doctor.longDesk}}
+          </div>
+          
+          </div>
+          <div class="info_doc fr">
+            <div *ngFor="let pract of doctor.practicesDto">
+              <ul class="info_list">
+                <li class="info_item"><p class="paragraf">Стаж:</p> <span>{{getPoliclinicById(pract.polyclinicId||0)?.name}}</span></li>
+                <li class="info_item">
+                  <p class="paragraf">Стаж c:</p>
+                  <span>{{pract.start | date:'dd.MM.yyyy'}}</span>
+                </li>
+                <li class="info_item"><p class="paragraf">Стаж :</p><span class="span"> {{pract.end | date:'dd.MM.yyyy'}}</span></li>
+                <li class="info_item"><p class="paragraf">Стаж:</p> <span>{{getSpecializationById(pract.specializationId||0)?.name}}</span></li>
+
+              </ul>
+              
+             
+              
+              
+            </div>
+            
+          </div>
         </div>
-        <div>
-          {{doctor.middleName}}
-        </div>
-        <div>
-          {{doctor.longDesk}}
-        </div>
-        <div>
-          {{doctor.photo}}
-        </div>
-        <div *ngFor="let pract of doctor.practicesDto">
-          {{pract.start | date:'dd.MM.yyyy'}}
-          {{pract.end | date:'dd.MM.yyyy'}}
-          {{getSpecializationById(pract.specializationId||0)?.name}}
-          {{getPoliclinicById(pract.polyclinicId||0)?.name}}
-        </div>
-      </div>
     </a>
   </div>
 </div>

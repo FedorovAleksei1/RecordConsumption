@@ -1,31 +1,79 @@
-.example-card {
-  max-width: 400px;
-  background-color: antiquewhite rgb(255, 255, 255);
-  color: black;
-}
 
-.buttonadmin {
-  margin-right: 10px;
-}
 
-.testA {
-  border: solid;
-  padding: 5px 5px 5px 5px;
-  margin: 10px 10px 10px 10px;
+
+.card_item {
+  width: 990px;
+  height: 990px;
   display: flex;
+  justify-content: space-between;
+  background: rgba(255, 255, 255, 0.1);
+  box-shadow: 3px 3px 3px 3px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+  padding: 15px;
+  flex-basis: 32%;
+  box-sizing: border-box;
+  min-height:370px;
+}
+
+.card_photo {
+  position: relative;
+  overflow: hidden;
+  width: 480px;
+  height: 300px;
+}
+
+.img_doc {
+  width: 480px;
+  height: 300px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  object-fit: cover;
+}
+
+.card_fio {
+  display: flex;
+  justify-content: center;
   align-items: center;
   flex-direction: column;
   flex-wrap: nowrap;
-  justify-content: center;
+  margin-top: 5px;
+}
+.info_dog {
+  width: 480px;
+  color: #333;
 }
 
-.p-4 {
-  padding: 1.5rem !important;
+.info_list {
+  min-height: 259px;
 }
-.mb-4 {
-  margin-bottom: 1.5rem !important;
+.info_item {
+  border-bottom: 1px solid #e0e0e0;
+  overflow: hidden;
+  padding: 10px 0 9px;
+  
+  
 }
-.rounded {
-  border-radius: var(--bs-border-radius) !important;
+
+.fr {
+  float: right;
 }
- 
+
+.paragraf {
+  display: inline-block;
+  float: left;
+  width: 130px;
+}
+.span {
+  display: block;
+  width: 340px;
+  float: right ;
+  width: 340px;
+}
+.longdesk {
+  margin-top: 30px;
+  margin-bottom: 20px;
+  max-width: 480px;
+  word-wrap: break-word;
+}

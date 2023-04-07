@@ -1,0 +1,137 @@
+.text-center {
+  margin-bottom: 30px;
+  font-family: 'Imprint MT Shadow';
+  font-size: 30px;
+  color:black;
+}
+.text-center1 {
+  margin-bottom: 15px;
+  font-family: 'Imprint MT Shadow';
+  font-size: 20px;
+  color: black;
+  text-align:center
+  
+}
+
+
+.section_input {
+  display: flex;
+  max-width: 100%;
+}
+.section_matcard {
+  background: rgba(255, 255, 255, 0.1);
+  max-width: 100%;
+  box-shadow:3px 3px 3px 3px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+  padding: 15px;
+  justify-content: center;
+}
+.section_matcard1 {
+  background: rgba(255, 255, 255, 0.1);
+  max-width: 96%;
+  box-shadow: 3px 3px 3px 3px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+  padding: 15px;
+  justify-content: center;
+  margin-bottom: 20px;
+  margin-left:10px;
+}
+.section_matcard2 {
+  background: rgba(255, 255, 255, 0.1);
+  max-width: 98%;
+  box-shadow: 3px 3px 3px 3px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+  padding: 15px;
+  justify-content: center;
+  margin-bottom: 20px;
+ 
+}
+
+.card_item {
+  background: rgba(255, 255, 255, 0.1);
+  max-width: 212px;
+  box-shadow: 3px 3px 3px 3px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+}
+
+.form_list {
+  display: flex;
+  list-style-type: none;
+  padding-left: 0px;
+  text-align: center;
+}
+.row {
+  display: flex;
+  justify-content: space-between !important;
+  align-items: center;
+  max-width: 1100px;
+}
+.mat_lable{
+    margin-right:10px;
+}
+.mat_lable1 {
+  width: 248px;
+  margin-right: 10px;
+}
+.mat_lable_date {
+  width: 248px;
+}
+.text_form {
+  display: flex;
+  justify-content: space-between;
+  gap: 100px;
+}
+.text_spec{
+    max-width:100px;
+}
+.text_polic {
+  max-width: 100px;
+}
+.text_start {
+  max-width: 100px;
+}
+.text_button {
+  max-width: 100px;
+}
+.text_button{
+    margin-bottom:20px;
+}
+.section_items {
+  display: flex;
+  justify-content: space-between;
+}
+
+
+/*.form_input {
+ 
+}*/
+
+.img_doc {
+  width: 400px;
+  height: 400px;
+}
+
+.form_image {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom:10px;
+}
+
+.textarea{
+    max-width: 100%;
+    height:200px;
+}
+.textarea_shortDesk {
+    margin-top: 30px;
+    max-width: 75%;
+  margin-bottom:30px;
+}
+
+.button {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.input {
+  height: 20px;
+}

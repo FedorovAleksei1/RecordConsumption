@@ -14,8 +14,8 @@
   <button type="submit" class="btn btn-primary" (click)="removePoliclinic(policlinic)">Удалить</button>
   <div><br></div>
 </div>-->
-
-<div class="form-control" *ngFor="let policlinic of policlinicList">
+<div class="form">
+ <div class="form-control" *ngFor="let policlinic of policlinicList">
   <mat-form-field appearance="fill">
     <mat-label>Название</mat-label>
     <input matInput [(ngModel)]="policlinic.name">
@@ -44,19 +44,21 @@
     <div *ngIf="photo.base64">
       <img src="data:image/png;base64, {{photo.base64}}" />
     </div>
-    <button (click)="removePhote(policlinic, photo)">uiytdyu6jtrdxc</button>
+    <button (click)="removePhote(policlinic, photo)">Удалить фото</button>
   </ng-container>
-
-  <input type="file" name="file" (change)="onFileChange($event, policlinic)">
+  <div class="form_input">
+    <input type="file" name="file" (change)="onFileChange($event, policlinic)">
+  </div>
+  
   <!--accept="application/pdf"-->
   <br>
 
   <br>
-  <button mat-raised-button (click)="editPoliclinic(policlinic)">Редактировать</button>
+  <button class="button" mat-raised-button (click)="editPoliclinic(policlinic)">Редактировать</button>
   <button mat-raised-button (click)="removePoliclinic(policlinic)">Удалить</button>
   <div><br></div>
 </div>
-
+</div>
 <!--<div class="form-control">
   <label for="">Название</label>
   <input type="text" [(ngModel)]="newPolyclinic.name">
@@ -68,32 +70,46 @@
   </select>
   <button type="submit" class="btn btn-primary" (click)="createPoliclinic()">Добавить</button>
 </div>-->
+<div class="Create">
+  <div class="form-control">
+    <mat-form-field appearance="fill">
+      <mat-label>Название</mat-label>
+      <input matInput [(ngModel)]="newPolyclinic.name">
+    </mat-form-field>
+    <br>
+    <mat-form-field appearance="fill">
+      <mat-label>Адрес</mat-label>
+      <input matInput [(ngModel)]="newPolyclinic.address">
+    </mat-form-field>
+    <br>
+    <mat-form-field appearance="fill">
+      <mat-label>Телефон</mat-label>
+      <input matInput [(ngModel)]="newPolyclinic.phone">
+    </mat-form-field>
+    <br>
+    <mat-form-field appearance="fill">
+      <mat-label>Город</mat-label>
 
-<div class="form-control">
-  <mat-form-field appearance="fill">
-    <mat-label>Название</mat-label>
-    <input matInput [(ngModel)]="newPolyclinic.name">
-  </mat-form-field>
-  <br>
-  <mat-form-field appearance="fill">
-    <mat-label>Адрес</mat-label>
-    <input matInput [(ngModel)]="newPolyclinic.address">
-  </mat-form-field>
-  <br>
-  <mat-form-field appearance="fill">
-    <mat-label>Телефон</mat-label>
-    <input matInput [(ngModel)]="newPolyclinic.phone">
-  </mat-form-field>
-  <br>
-  <mat-form-field appearance="fill">
-    <mat-label>Город</mat-label>
+      <mat-select [(ngModel)]="newPolyclinic.townId">
+        <mat-option *ngFor="let town of townList" [value]="town.id">
+          {{town.name}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
 
-    <mat-select [(ngModel)]="newPolyclinic.townId">
-      <mat-option *ngFor="let town of townList" [value]="town.id">
-        {{town.name}}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
-  <br>
-  <button mat-raised-button (click)="createPoliclinic()">Добавить</button>
+    
+      <ng-container *ngFor="let photo of newPolyclinic.photos">
+        <div *ngIf="photo.base64">
+          <img src="data:image/png;base64, {{photo.base64}}" />
+        </div>
+
+      </ng-container>
+      <div class="form_input">
+        <input type="file" name="file" (change)="onFileChange($event, newPolyclinic)">
+      </div>
+   
+    <br>
+    <button mat-raised-button (click)="createPoliclinic()">Добавить</button>
+  </div>
+  
 </div>

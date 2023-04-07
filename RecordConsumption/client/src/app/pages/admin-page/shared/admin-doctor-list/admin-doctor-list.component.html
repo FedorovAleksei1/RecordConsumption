@@ -4,9 +4,12 @@
 <div class="text col-12">
   <mat-card class="example-card  <!--d-flex flex-wrap justify-content-between-->" *ngFor="let doctor of doctorList" [routerLink]="['./doctor/',doctor.id]">
     <br>
-    <mat-card-header>
-      <img *ngIf="doctor.photoBase64" src="data:image/png;base64, {{doctor.photoBase64}}" />
-    </mat-card-header>
+    <div class="image">
+      <mat-card-header>
+        <img *ngIf="doctor.photoBase64" src="data:image/png;base64, {{doctor.photoBase64}}" />
+      </mat-card-header>
+    </div>
+    
     <div class="test">
       <mat-card-content>
         {{doctor.firstName}} {{doctor.middleName}} {{doctor.lastName}}

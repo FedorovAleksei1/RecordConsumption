@@ -1,34 +1,167 @@
 <div class="text-center">Создание врача</div>
 
 <div class="form-control">
-  <button type="submit" class="btn btn-primary" (click)="save()">Сохранить</button>
-  <br>
-  <mat-form-field appearance="fill">
-    <mat-label>Имя врача</mat-label>
-    <input matInput [(ngModel)]="doctor.firstName">
-  </mat-form-field>
-  <br>
-  <mat-form-field appearance="fill">
-    <mat-label>Отчество врач</mat-label>
-    <input matInput [(ngModel)]="doctor.middleName">
-  </mat-form-field>
-  <br>
-  <mat-form-field appearance="fill">
-    <mat-label>Фамилия врач</mat-label>
-    <input matInput [(ngModel)]="doctor.lastName">
-  </mat-form-field>
-  <br>
-  <mat-form-field appearance="fill">
-    <mat-label>Номер телефона</mat-label>
-    <input matInput [(ngModel)]="doctor.phone"
-           pattern="[0-9]{3}-[0-9]{3}-[0-9]{3}"
-           required>
-  </mat-form-field>
-  <div *ngIf="doctor?.photo?.base64">
-    <img src="data:image/png;base64, {{doctor?.photo?.base64}}" />
-  </div>
 
-  <input type="file" name="file" (change)="onFileChange($event)">
+
+
+  <br>
+  <section>
+    
+      <div class="text-center1">ФИО</div>
+    
+    <div class="section_input">
+      <div class="section_matcard">
+
+        <mat-form-field class="mat_lable1" appearance="fill">
+          <mat-label>Фамилия врач</mat-label>
+          <input matInput [(ngModel)]="doctor.lastName">
+        </mat-form-field>
+
+        <mat-form-field class="mat_lable" appearance="fill">
+          <mat-label>Имя врача</mat-label>
+          <input matInput [(ngModel)]="doctor.firstName">
+        </mat-form-field>
+
+        <mat-form-field class="mat_lable" appearance="fill">
+          <mat-label>Отчество врач</mat-label>
+          <input matInput [(ngModel)]="doctor.middleName">
+        </mat-form-field>
+
+
+        <mat-form-field class="mat_lable1" appearance="fill">
+          <mat-label>Номер телефона</mat-label>
+          <input matInput [(ngModel)]="doctor.phone"
+                 pattern="[0-9]{3}-[0-9]{3}-[0-9]{3}"
+                 required>
+        </mat-form-field>
+
+      </div>
+    </div>
+  </section>
+  <br>
+  <section>
+    <div class="row">
+      <div class="text-center1">Специальности</div>
+
+      <div class="section_matcard1">
+        <div class="form-center" *ngFor="let pract of doctor.practicesDto">
+
+          <mat-form-field class="mat_lable" appearance="fill">
+            <mat-label>Специлизация</mat-label>
+            <mat-select [(ngModel)]="pract.specializationId">
+              <mat-option *ngFor="let spec of specializationList" [value]="spec.id">{{spec.name}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+
+
+          <mat-form-field class="mat_lable" appearance="fill">
+            <mat-label>Специлизация</mat-label>
+            <mat-select [(ngModel)]="pract.polyclinicId">
+              <mat-option *ngFor="let polic of policlinicList" [value]="polic.id">{{polic.name}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+
+
+          <mat-form-field class="mat_lable" appearance="fill">
+            <mat-label>Дата начала работы</mat-label>
+            <input matInput [matDatepicker]="picker" [(ngModel)]="pract.start">
+            <mat-hint>MM/DD/YYYY</mat-hint>
+            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+
+
+
+          <mat-form-field class="mat_lable_date" appearance="fill">
+            <mat-label>Дата окончания работы</mat-label>
+            <input matInput [matDatepicker]="picker1" [(ngModel)]="pract.end">
+            <mat-hint>MM/DD/YYYY</mat-hint>
+            <mat-datepicker-toggle matIconSuffix [for]="picker1"></mat-datepicker-toggle>
+            <mat-datepicker #picker1></mat-datepicker>
+          </mat-form-field>
+          <div class="text_button">
+            <button mat-raised-button (click)="removePractice(pract)">Удалить</button>
+            <br>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+  <div class="text-center1">Добавление Специальности</div>
+  <div class="section_matcard2">
+    <mat-form-field class="mat_lable" appearance="fill">
+      <mat-label>Специлизация</mat-label>
+      <mat-select [(ngModel)]="newPractice.specializationId">
+        <mat-option *ngFor="let spec of specializationList" [value]="spec.id">{{spec.name}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+
+
+    <mat-form-field class="mat_lable" appearance="fill">
+      <mat-label>Полеклиника</mat-label>
+      <mat-select [(ngModel)]="newPractice.polyclinicId">
+        <mat-option *ngFor="let polic of policlinicList" [value]="polic.id">{{polic.name}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+
+
+    <mat-form-field class="mat_lable" appearance="fill">
+      <mat-label>Дата начала работы</mat-label>
+      <input matInput [matDatepicker]="picker" [(ngModel)]="newPractice.start">
+      <mat-hint>MM/DD/YYYY</mat-hint>
+      <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
+
+
+    <mat-form-field class="mat_lable_date" appearance="fill">
+      <mat-label>Дата окончания работы</mat-label>
+      <input matInput [matDatepicker]="picker1" [(ngModel)]="newPractice.end">
+      <mat-hint>MM/DD/YYYY</mat-hint>
+      <mat-datepicker-toggle matIconSuffix [for]="picker1"></mat-datepicker-toggle>
+      <mat-datepicker #picker1></mat-datepicker>
+    </mat-form-field>
+
+
+
+    <button class="button" mat-raised-button (click)="addPractice()">Добавить</button>
+
+    <br>
+  </div>
+  <section>
+    <div class="form_image">
+      <div>
+        <div class="form_input">
+          <input type="file" name="file" (change)="onFileChange($event)">
+
+        </div>
+        <textarea class="textarea_shortDesk" type="text" placeholder="Короткое опсиание" [(ngModel)]="doctor.shortDesk">
+
+</textarea>
+        <textarea class="textarea" type="text" placeholder="Длинное описание" [(ngModel)]="doctor.longDesk">
+
+</textarea>
+      </div>
+
+      <div *ngIf="doctor?.photo?.base64">
+        <img class="img_doc" src="data:image/png;base64, {{doctor?.photo?.base64}}" />
+      </div>
+    </div>
+
+  </section>
+
+  <button class="button" mat-raised-button (click)="save()">Сохранить</button>
+
+  <!--<div class="form_input">
+    <input type="file" name="file" (change)="onFileChange($event)">
+
+  </div>-->
   <!--accept="application/pdf"-->
   <br>
 
@@ -42,65 +175,5 @@
 
 
 
-  <div *ngFor="let pract of doctor.practicesDto">
-    <mat-form-field appearance="fill">
-      <mat-label>Специлизация</mat-label>
-      <mat-select [(ngModel)]="pract.specializationId">
-        <mat-option *ngFor="let spec of specializationList" [value]="spec.id">{{spec.name}}</mat-option>
-      </mat-select>
-    </mat-form-field>
-    <mat-form-field appearance="fill">
-      <mat-label>Специлизация</mat-label>
-      <mat-select [(ngModel)]="pract.polyclinicId">
-        <mat-option *ngFor="let polic of policlinicList" [value]="polic.id">{{polic.name}}</mat-option>
-      </mat-select>
-    </mat-form-field>
-    <mat-form-field appearance="fill">
-      <mat-label>Дата начала работы</mat-label>
-      <input matInput [matDatepicker]="picker" [(ngModel)]="pract.start">
-      <mat-hint>MM/DD/YYYY</mat-hint>
-      <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-      <mat-datepicker #picker></mat-datepicker>
-    </mat-form-field>
-    <mat-form-field appearance="fill">
-      <mat-label>Дата окончания работы</mat-label>
-      <input matInput [matDatepicker]="picker1" [(ngModel)]="pract.end">
-      <mat-hint>MM/DD/YYYY</mat-hint>
-      <mat-datepicker-toggle matIconSuffix [for]="picker1"></mat-datepicker-toggle>
-      <mat-datepicker #picker1></mat-datepicker>
-    </mat-form-field>
-    <button mat-raised-button (click)="removePractice(pract)">Удалить</button>
-    <br>
-  </div>
 
-  <div>
-    <mat-form-field appearance="fill">
-      <mat-label>Специлизация</mat-label>
-      <mat-select [(ngModel)]="newPractice.specializationId">
-        <mat-option *ngFor="let spec of specializationList" [value]="spec.id">{{spec.name}}</mat-option>
-      </mat-select>
-    </mat-form-field>
-    <mat-form-field appearance="fill">
-      <mat-label>Полеклиника</mat-label>
-      <mat-select [(ngModel)]="newPractice.polyclinicId">
-        <mat-option *ngFor="let polic of policlinicList" [value]="polic.id">{{polic.name}}</mat-option>
-      </mat-select>
-    </mat-form-field>
-    <mat-form-field appearance="fill">
-      <mat-label>Дата начала работы</mat-label>
-      <input matInput [matDatepicker]="picker" [(ngModel)]="newPractice.start">
-      <mat-hint>MM/DD/YYYY</mat-hint>
-      <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-      <mat-datepicker #picker></mat-datepicker>
-    </mat-form-field>
-    <mat-form-field appearance="fill">
-      <mat-label>Дата окончания работы</mat-label>
-      <input matInput [matDatepicker]="picker1" [(ngModel)]="newPractice.end">
-      <mat-hint>MM/DD/YYYY</mat-hint>
-      <mat-datepicker-toggle matIconSuffix [for]="picker1"></mat-datepicker-toggle>
-      <mat-datepicker #picker1></mat-datepicker>
-    </mat-form-field>
-    <button mat-raised-button (click)="addPractice()">Добавить</button>
-    <br>
-  </div>
 </div>

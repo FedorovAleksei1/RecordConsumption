@@ -1,14 +1,27 @@
 <p>home-specialization-list works!</p>
-<mat-form-field appearance="fill">
-  <mat-label>Название</mat-label>
-  <input matInput [(ngModel)]="townName">
-  <br>
-</mat-form-field>
-<button mat-raised-button (click)="getSpecializationList()">Найти </button>
+
+  <mat-form-field  appearance="fill">
+    <mat-label>Название</mat-label>
+    <input matInput [(ngModel)]="townName">
+    <br>
+  </mat-form-field>
+
+  
+
+
+<div class="button">
+  <button mat-raised-button (click)="getSpecializationList()">Найти </button>
+</div>
+
+
+
 <br>
 <div class="row">
   <div class="col-4" *ngFor="let spec of specializationList" >
     <a class="testA "[routerLink]="['./specialization/',spec.id]">
+      <div class="spec_image">
+        <img class="spec_img" src="/assets/images/onrjkju.png" />
+      </div>
       <div>
         {{spec.name}}
       </div>

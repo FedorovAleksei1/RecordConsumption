@@ -6,10 +6,15 @@
   flex-direction: column;
   flex-wrap: wrap;
   justify-content: center;
-  padding: 16px;
+  padding: 10px;
 }
 .buttonadmin {
   margin-right: 10px;
+}
+
+.image{
+    width:200px;
+    height: 160px;
 }
 
 .text {
@@ -22,7 +27,9 @@
   gap: 19px;
 }
 .test {
+    text-align:center;
   align-items:center;
   width: 300px;
+  padding: 16px 0;
   /*height: 100px;*/
 }

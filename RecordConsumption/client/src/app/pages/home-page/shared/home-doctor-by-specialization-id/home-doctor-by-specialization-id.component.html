@@ -1,36 +1,57 @@
-<p>home-doctor-by-specialization-id works!</p>
+<div class="container">
+  <p>home-doctor-by-specialization-id works!</p>
 
 
-<div class="row">
-  <div class="col-4" *ngFor="let doc of doctorList"> 
-    <a class="testA " [routerLink]="['/doctor/',doc.id]">
-      <div>
-        {{doc.lastName}}        
-        <div>
-          {{doc.firstName}}        
-        </div>
-        <div>
-          {{doc.middleName}}
-        </div>
-        <div>
-          {{doc.shortDesk}}
-        </div>
+  <div class="row">
+    <div class=" col-4" *ngFor="let doc of doctorList">
+      <a  [routerLink]="['/doctor/',doc.id]">
+        <div class="card_item">
+          
+            <div class="card_photo">
+              <div *ngIf="doc?.photoBase64">
+                <img class="img_doc" src="data:image/png;base64, {{doc?.photoBase64}}" />
+              </div>
+            </div>
+          
+            <div class="card_fio">
+              <div class="items_fio">
 
+                {{doc.lastName}}
+
+
+                {{doc.firstName}}
+
+
+                {{doc.middleName}}
+
+
+              </div>
+              <div>
+                {{doc.shortDesk}}
+              </div>
+            </div>
+        </div>
+      </a>
+    </div>
+    <div class="paginftion">
+      <div class="lable-select">
+        <mat-label class="lable">Кол элементов на странице</mat-label>
+        <mat-form-field class="slect" appearance="fill">
+
+          <mat-select value="5" (selectionChange)="changeTheNumberOfLines($event)">
+            <mat-option value="5">5</mat-option>
+            <mat-option value="10">10</mat-option>
+            <mat-option value="25">25</mat-option>
+          </mat-select>
+        </mat-form-field>
       </div>
-    </a>
+      <div class="select_button">
+        <button class="select_button  button" (click)="pageBack()" [disabled]="page == 1">Назад</button>
+        <div>{{page}}/{{pageAll}}</div>
+        <button class="select_button  button" (click)="pageForward()" [disabled]="page >= pageAll">Вперёд</button>
+      </div>
+    </div>
   </div>
-  <mat-form-field appearance="fill">
-    <mat-label>Кол элементов на странице</mat-label>
-    <mat-select value="5" (selectionChange)="changeTheNumberOfLines($event)">
-      <mat-option value="1">1</mat-option>
-      <mat-option value="5">5</mat-option>
-      <mat-option value="10">10</mat-option>
-      <mat-option value="25">25</mat-option>
-    </mat-select>
-  </mat-form-field>
-  <button (click)="pageBack()" [disabled]="page == 1">Назад</button>
-  <div>{{page}}/{{pageAll}}</div>
-  <button (click)="pageForward()" [disabled]="page >= pageAll">Вперёд</button>
+  <br>
+  <div></div>
 </div>
-<br>
-<div></div>

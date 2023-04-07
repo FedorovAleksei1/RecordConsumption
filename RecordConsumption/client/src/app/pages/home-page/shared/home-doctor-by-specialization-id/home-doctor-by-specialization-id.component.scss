@@ -8,6 +8,26 @@
 .buttonadmin {
   margin-right: 10px;
 }
+.card{
+    display:flex;
+    justify-content:space-between;
+
+}
+.card_item {
+  background: rgba(255, 255, 255, 0.1);
+  box-shadow: 3px 3px 3px 3px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+  padding: 15px;
+  
+  flex-basis: 32%;
+  box-sizing: border-box;
+}
+.card_photo {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  height: 202px;
+}
 
 .testA {
   border: solid;
@@ -18,4 +38,75 @@
   flex-direction: column;
   flex-wrap: nowrap;
   justify-content: center;
+}
+
+
+.items {
+  display: flex;
+}
+
+
+.img_doc {
+  width: 100%;
+  height: 202px;
+  position:absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  object-fit:cover;
+}
+
+.main {
+  display: flex;
+  justify-content: space-between;
+}
+
+
+.card_fio {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  margin-top: 5px;
+}
+
+
+
+
+
+
+
+.paginftion {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+  bottom: 0px;
+  max-width: 80%;
+}
+.lable-select {
+  margin-left: 10px;
+}
+.slect {
+  width: 70px;
+  height: 70px;
+  margin: 0;
+  padding: 0;
+  text-decoration: none;
+  
+}
+.select_button {
+  display: flex;
+  align-items: center;
+  border-radius: 5px;
+  margin-left: 5px;
+  margin-right: 5px;
+
+  &.button {
+    margin-left: 5px;
+  }
+}
+.lable {
+  margin-right: 10px;
 }

@@ -1,0 +1,32 @@
+.text-center {
+  margin-bottom: 30px;
+  font-family: 'Imprint MT Shadow';
+  font-size: 30px;
+}
+
+.form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content:space-between;
+  /*padding-left: 15px;
+  padding-right: 15px;*/
+}
+
+.form-control {
+  max-width: 500px;
+  align-items: center;
+ 
+}
+
+.form_input {
+  max-width: 350px;
+
+}
+.button {
+  margin-right: 10px;
+}
+
+.Create {
+  margin-top: 100px;
+}
