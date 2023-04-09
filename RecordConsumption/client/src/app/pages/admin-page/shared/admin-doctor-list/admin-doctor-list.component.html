@@ -9,12 +9,15 @@
         <img *ngIf="doctor.photoBase64" src="data:image/png;base64, {{doctor.photoBase64}}" />
       </mat-card-header>
     </div>
-    
+
     <div class="test">
       <mat-card-content>
         {{doctor.firstName}} {{doctor.middleName}} {{doctor.lastName}}
       </mat-card-content>
     </div>
+
+    <button class="button" mat-raised-button (click)="removeDoctor(doctor, $event)" >Удалить</button>
   </mat-card>
+  
 </div>
 <br>

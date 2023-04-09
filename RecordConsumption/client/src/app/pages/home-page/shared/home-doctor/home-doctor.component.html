@@ -1,4 +1,4 @@
-<p>home-doctor works!</p>
+
 
 <!--<div class="p-4 p-md-5 mb-4 rounded text-bg-dark">
   <div class="col-md-6 px-0">
@@ -39,13 +39,15 @@
           <div class="info_doc fr">
             <div *ngFor="let pract of doctor.practicesDto">
               <ul class="info_list">
-                <li class="info_item"><p class="paragraf">Стаж:</p> <span>{{getPoliclinicById(pract.polyclinicId||0)?.name}}</span></li>
+                <li class="info_item"><p class="paragraf">Поликлиника:</p> <span>{{getPoliclinicById(pract.polyclinicId||0)?.name}}</span></li>
                 <li class="info_item">
                   <p class="paragraf">Стаж c:</p>
                   <span>{{pract.start | date:'dd.MM.yyyy'}}</span>
                 </li>
-                <li class="info_item"><p class="paragraf">Стаж :</p><span class="span"> {{pract.end | date:'dd.MM.yyyy'}}</span></li>
-                <li class="info_item"><p class="paragraf">Стаж:</p> <span>{{getSpecializationById(pract.specializationId||0)?.name}}</span></li>
+                <li class="info_item">
+                <p class="paragraf">Стаж :</p>
+                <span > {{pract.end | date:'dd.MM.yyyy'}}</span></li>
+                <li class="info_item"><p class="paragraf">Специльность:</p> <span>{{getSpecializationById(pract.specializationId||0)?.name}}</span></li>
 
               </ul>
               

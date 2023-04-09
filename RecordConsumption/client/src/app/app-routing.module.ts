@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AdminPageComponent } from './pages/admin-page/admin-page.component';
+import { AdminDoctorListComponent } from './pages/admin-page/shared/admin-doctor-list/admin-doctor-list.component';
 import { AdminDoctorComponent } from './pages/admin-page/shared/admin-doctor/admin-doctor.component';
 import { AdminPoliclinicComponent } from './pages/admin-page/shared/admin-policlinic/admin-policlinic.component';
 import { AdminSpecializationComponent } from './pages/admin-page/shared/admin-specialization/admin-specialization.component';
@@ -19,6 +20,7 @@ const routes: Routes = [
   { path: 'admin/policlinic', component: AdminPoliclinicComponent },
   { path: 'admin/doctor/:id', component: AdminDoctorComponent },
   { path: 'admin/doctor', component: AdminDoctorComponent },
+  { path: 'admin', component: AdminDoctorListComponent },
 ];
 
 @NgModule({

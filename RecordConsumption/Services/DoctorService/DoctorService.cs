@@ -140,12 +140,12 @@ namespace RecordConsumption.Services.DoctorService
             if (id == 0)
                 throw new Exception("Id должен быть больше 0");
 
-            var doctor = _context.Doctors.FirstOrDefault(t => t.Id == id);
+            var doctor = _context.Doctors.Include(p => p.Practices).FirstOrDefault(t => t.Id == id);
 
             if (doctor == null)
                 throw new Exception("Объект не найден");
 
-            _context.Practices.RemoveRange(doctor.Practices);
+            //_context.Practices.RemoveRange(doctor.Practices);
             _context.Doctors.Remove(doctor);
             _context.SaveChanges();
         }

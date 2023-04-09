@@ -65,6 +65,10 @@ export class AdminDoctorComponent {
       });
     }
   }
+  back() {
+    this.router.navigate(['./admin'])
+  }
+
 
   addPractice() {
     if (!this.doctor.practicesDto) {
@@ -97,4 +101,7 @@ export class AdminDoctorComponent {
       console.log('Файл не указан');
     }
   }
+
+  
 }
+
